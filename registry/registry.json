@@ -604,11 +604,17 @@
       "minPowernuxVersion": "0.6.0",
       "version": "1.0.0",
       "packages": {
+        "linux-aarch64": {
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/file-organizer-v1.0.0/file-organizer-1.0.0-linux-aarch64.tar.gz",
+          "sha256": "4e1c16f2c0cf49cfe3455bce74bdf1880b46f4db134a624aef633a3e135e6b71",
+          "size": 274718,
+          "signature": "yRfA4gf3YAA3op4E9n3rFTq6lwDZAYVgCvr3Mdi+tfdlrtcy/pV58QdT3y759lF5K/za0nJbBorjkUPzGkcBAg=="
+        },
         "linux-x86_64": {
-          "url": "packages/file-organizer-1.0.0-linux-x86_64.tar.gz",
-          "sha256": "3fbd13be0a5e0e24c2b8be8d793b4d25ca86eef733f2faf72f4eab897735ac91",
-          "size": 296503,
-          "signature": "ie4lSLLHSSRIy50ktGsF81FTF90rb5q44pNRbz4FDbQSXvBgpVH61ubSiZs0e5tYx9ZuM6+lTN4Uyr44JmZfBg=="
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/file-organizer-v1.0.0/file-organizer-1.0.0-linux-x86_64.tar.gz",
+          "sha256": "a4986032064442b97ea15d2df61294f000a510d2731139bd4d2cac515a76f1f9",
+          "size": 296372,
+          "signature": "0ryFOdlJmByPZZoi6/0gdYRU1MAk2zuqJ0aMyKopZmcuGVy/Mt6sETjlgx1usCTkdh5fKWG7/kF1Frt+ZruyBA=="
         }
       },
       "i18n": {
