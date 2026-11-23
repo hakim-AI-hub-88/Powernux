@@ -18,7 +18,8 @@
     "package:screenshot": "bash tools/package-tool.sh screenshot",
     "package:ai-face": "bash tools/package-tool.sh ai-face",
     "build:notes-ui": "vite build --config tools/notes/vite.config.ts",
-    "package:notes": "bash tools/package-tool.sh notes"
+    "package:notes": "bash tools/package-tool.sh notes",
+    "release": "bash scripts/release.sh"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^7.3.1",

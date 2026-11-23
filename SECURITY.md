@@ -4,7 +4,7 @@
 
 Please **do not open a public issue** for security problems. Report them privately through
 GitHub: *Security → Report a vulnerability* on the repository
-(https://github.com/hakim-AI-hub-88/powernux/security/advisories/new).
+(https://github.com/hakim-AI-hub-88/Powernux/security/advisories/new).
 
 You will get an answer within a few days. Thank you for helping keep Powernux users safe.
 

@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 # Compile un module Powernux, crée son archive et met à jour registry/registry.json.
 #   Usage : npm run package:clipboard   (ou bash tools/package-tool.sh <id>)
+#   Variables : POWERNUX_SIGNING_KEY (clé privée, en CI) · PACKAGE_BASE_URL (URL de la Release GitHub)
 set -euo pipefail
 
 ID="${1:?Usage: package-tool.sh <tool-id>}"
@@ -51,9 +52,12 @@ for key in ("name", "description", "category", "icon", "author", "minPowernuxVer
     if key in m:
         entry[key] = m[key]
 entry["version"] = m["version"]
+# En CI : URL absolue de la Release GitHub ; en local : chemin relatif au catalogue.
+base = os.environ.get("PACKAGE_BASE_URL", "").rstrip("/")
+url = f"{base}/{os.path.basename(archive)}" if base else "packages/" + os.path.basename(archive)
 entry["packages"] = {
     f"linux-{arch}": {
-        "url": "packages/" + os.path.basename(archive),
+        "url": url,
         "sha256": hashlib.sha256(open(archive, "rb").read()).hexdigest(),
         "size": os.path.getsize(archive),
         "signature": signature,

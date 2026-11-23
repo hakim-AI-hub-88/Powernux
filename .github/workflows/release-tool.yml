@@ -1,0 +1,121 @@
+# Publication d'un outil : tag « <outil>-v<version> » (ex. notes-v1.0.1)
+#   → compilation sur Ubuntu 24.04, archive signée (Ed25519), Release GitHub,
+#   → mise à jour automatique de registry/registry.json sur main (empreinte SHA-256 + signature).
+name: Release tool
+
+on:
+  push:
+    tags: ["*-v[0-9]*"]
+
+permissions:
+  contents: write
+
+# Une seule mise à jour du catalogue à la fois (plusieurs outils peuvent être publiés ensemble).
+concurrency:
+  group: registry
+  cancel-in-progress: false
+
+jobs:
+  release:
+    name: Build, sign & publish ${{ github.ref_name }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Read the tag
+        run: |
+          TAG="$GITHUB_REF_NAME"
+          ID="${TAG%-v*}"
+          VERSION="${TAG##*-v}"
+          if ! [[ "$ID" =~ ^[a-z0-9][a-z0-9-]{0,39}$ ]] || [ ! -f "tools/$ID/manifest.json" ]; then
+            echo "::error::Unknown tool \"$ID\" (expected tools/$ID/manifest.json)"
+            exit 1
+          fi
+          MANIFEST_VERSION=$(node -p "require('./tools/$ID/manifest.json').version")
+          if [ "$VERSION" != "$MANIFEST_VERSION" ]; then
+            echo "::error::Tag version $VERSION does not match tools/$ID/manifest.json ($MANIFEST_VERSION)"
+            exit 1
+          fi
+          NAME=$(node -p "require('./tools/$ID/manifest.json').name")
+          CARGO_DIR="tools/$ID"; [ -d "tools/$ID/src-tauri" ] && CARGO_DIR="tools/$ID/src-tauri"
+          {
+            echo "TOOL_ID=$ID"
+            echo "TOOL_VERSION=$VERSION"
+            echo "TOOL_NAME=$NAME"
+            echo "CARGO_DIR=$CARGO_DIR"
+          } >> "$GITHUB_ENV"
+
+      - name: Install system dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev librsvg2-dev libayatana-appindicator3-dev \
+            libssl-dev libxdo-dev libdbus-1-dev pkg-config patchelf build-essential
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - uses: dtolnay/rust-toolchain@stable
+
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: ${{ env.CARGO_DIR }} -> target
+
+      - run: npm ci
+
+      - name: Build, sign and package
+        env:
+          POWERNUX_SIGNING_KEY: ${{ secrets.POWERNUX_SIGNING_KEY }}
+          PACKAGE_BASE_URL: https://github.com/${{ github.repository }}/releases/download/${{ github.ref_name }}
+        run: |
+          if [ -z "$POWERNUX_SIGNING_KEY" ]; then
+            echo "::error::Missing secret POWERNUX_SIGNING_KEY (Settings → Secrets and variables → Actions)"
+            exit 1
+          fi
+          bash tools/package-tool.sh "$TOOL_ID"
+          cp registry/registry.json "$RUNNER_TEMP/registry-built.json"
+
+      - name: Publish the release
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release create "$GITHUB_REF_NAME" \
+            "registry/packages/$TOOL_ID-$TOOL_VERSION-linux-x86_64.tar.gz" \
+            --title "$TOOL_NAME $TOOL_VERSION" \
+            --notes "Tool for Powernux — install or update it from Powernux → Tools Manager." \
+            --latest=false
+
+      - name: Update the catalog on main
+        run: |
+          # Commits au nom du mainteneur (pas de robot dans la liste des contributeurs).
+          git config user.name "hakim-AI-hub-88"
+          git config user.email "275765637+hakim-AI-hub-88@users.noreply.github.com"
+          for attempt in 1 2 3; do
+            git fetch origin main
+            git checkout -f -B main origin/main
+            python3 - "$RUNNER_TEMP/registry-built.json" registry/registry.json "$TOOL_ID" <<'PY'
+          import json, sys
+          built_path, target_path, tool_id = sys.argv[1:]
+          built = next(t for t in json.load(open(built_path))["tools"] if t["id"] == tool_id)
+          registry = json.load(open(target_path))
+          for i, t in enumerate(registry["tools"]):
+              if t["id"] == tool_id:
+                  registry["tools"][i] = built
+                  break
+          else:
+              registry["tools"].append(built)
+          with open(target_path, "w") as f:
+              json.dump(registry, f, indent=2, ensure_ascii=False)
+              f.write("\n")
+          PY
+            git add registry/registry.json
+            if git diff --cached --quiet; then echo "Catalog already up to date"; exit 0; fi
+            git commit -m "registry: $TOOL_NAME $TOOL_VERSION"
+            if git push origin main; then exit 0; fi
+            sleep 5
+          done
+          echo "::error::Could not update registry.json on main"
+          exit 1

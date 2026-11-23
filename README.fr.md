@@ -8,8 +8,8 @@
 
 <br><br>
 
-[![Version](https://img.shields.io/github/v/release/hakim-AI-hub-88/powernux?style=for-the-badge&color=00C2FF&labelColor=1E1B4B&label=version)](https://github.com/hakim-AI-hub-88/powernux/releases/latest)
-[![Téléchargements](https://img.shields.io/github/downloads/hakim-AI-hub-88/powernux/total?style=for-the-badge&color=8B7CFF&labelColor=1E1B4B&label=t%C3%A9l%C3%A9chargements)](https://github.com/hakim-AI-hub-88/powernux/releases)
+[![Version](https://img.shields.io/github/v/release/hakim-AI-hub-88/Powernux?style=for-the-badge&color=00C2FF&labelColor=1E1B4B&label=version)](https://github.com/hakim-AI-hub-88/Powernux/releases/latest)
+[![Téléchargements](https://img.shields.io/github/downloads/hakim-AI-hub-88/Powernux/total?style=for-the-badge&color=8B7CFF&labelColor=1E1B4B&label=t%C3%A9l%C3%A9chargements)](https://github.com/hakim-AI-hub-88/Powernux/releases)
 [![Licence MIT](https://img.shields.io/badge/licence-MIT-2EE6A6?style=for-the-badge&labelColor=1E1B4B)](LICENSE)
 <br>
 ![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
@@ -21,11 +21,11 @@
 
 <br>
 
-<a href="https://github.com/hakim-AI-hub-88/powernux/releases/latest/download/powernux_amd64.deb">
+<a href="https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux_amd64.deb">
   <img src="https://img.shields.io/badge/⬇%20Télécharger%20pour%20Ubuntu-.deb%20·%20dernière%20version-00C2FF?style=for-the-badge&labelColor=1E1B4B" alt="Télécharger le .deb" height="44">
 </a>
 
-<sub><a href="https://github.com/hakim-AI-hub-88/powernux/releases">Toutes les versions</a> · <a href="README.md">🇬🇧 Read in English</a></sub>
+<sub><a href="https://github.com/hakim-AI-hub-88/Powernux/releases">Toutes les versions</a> · <a href="README.md">🇬🇧 Read in English</a></sub>
 
 </div>
 
@@ -76,7 +76,7 @@ en un clic, activez ou désactivez, et qui fonctionne en arrière-plan **sans ga
 Nécessite **Ubuntu 24.04 ou plus récent** (ou une autre distribution avec **GNOME 45 à 50**), x86-64.
 
 ```bash
-wget https://github.com/hakim-AI-hub-88/powernux/releases/latest/download/powernux_amd64.deb
+wget https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux_amd64.deb
 sudo apt install ./powernux_amd64.deb
 powernux
 ```
@@ -89,7 +89,7 @@ Les outils liés à GNOME Shell (Smart Windows, Voice Typing, Focus Mode, AI Fac
 
 ```mermaid
 flowchart LR
-    subgraph GitHub["GitHub · hakim-AI-hub-88/powernux"]
+    subgraph GitHub["GitHub · hakim-AI-hub-88/Powernux"]
         REG["registry/registry.json<br/>catalogue des outils"]
         REL["Releases<br/>.deb + archives d'outils signées"]
     end
@@ -162,7 +162,7 @@ sudo apt remove powernux
 ## 🛠️ Compiler depuis les sources
 
 ```bash
-git clone https://github.com/hakim-AI-hub-88/powernux.git && cd powernux
+git clone https://github.com/hakim-AI-hub-88/Powernux.git && cd powernux
 npm install
 npm run tauri dev      # lancer en développement
 npm run tauri build    # créer le .deb / .rpm / .AppImage

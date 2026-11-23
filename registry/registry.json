@@ -519,9 +519,9 @@
       "packages": {
         "linux-x86_64": {
           "url": "packages/screenshot-1.0.0-linux-x86_64.tar.gz",
-          "sha256": "c4992872459bf7ef4d4af9062c8d5b4ec32fc7d83e74e38efe05d735e3bfe671",
-          "size": 203121,
-          "signature": "1CQdiIV1D/tBgsyadiWMSAPXy2dLAZ7arZvnRnYpN11k1ep87ifl3zt6oI3i44/G6CsfE1JPr6O29cruZIXnAw=="
+          "sha256": "7ba14a7c9a576c4725ac8ab1858c4a7163568c31e1a48ee628bfdf44ae91c532",
+          "size": 203116,
+          "signature": "mhEse8qPwlALQ840pIF6brFiGnbn3+3eC0TTi9c8GMj31w9zGPJ0Jrmg3Ed1Bf6W8NlD+Lo2Mwj+pbgRwQS7Dg=="
         }
       },
       "i18n": {

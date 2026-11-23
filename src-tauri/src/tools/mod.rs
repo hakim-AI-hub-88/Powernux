@@ -29,9 +29,9 @@ const PROGRESS_EVENT: &str = "tools://progress";
 const CHANGED_EVENT: &str = "tools://changed";
 
 /// Dépôt GitHub du projet (catalogue des outils et versions de l'application).
-pub const GITHUB_REPO: &str = "hakim-AI-hub-88/powernux";
+pub const GITHUB_REPO: &str = "hakim-AI-hub-88/Powernux";
 /// Registre utilisé en production.
-const RELEASE_REGISTRY: &str = "https://raw.githubusercontent.com/hakim-AI-hub-88/powernux/main/registry/registry.json";
+const RELEASE_REGISTRY: &str = "https://raw.githubusercontent.com/hakim-AI-hub-88/Powernux/main/registry/registry.json";
 
 fn default_registry() -> String {
     if let Ok(url) = std::env::var("POWERNUX_REGISTRY") {
