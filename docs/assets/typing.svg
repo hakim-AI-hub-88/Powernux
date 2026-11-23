@@ -1,0 +1,66 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="720" height="56" viewBox="0 0 720 56" role="img" aria-label="Clipboard Manager · Voice Typing · Smart Windows · AI Face Assistant · Focus Mode · Notes · Screenshot · Project Dashboard · File Organizer">
+  <style>text { font-family: ui-monospace, "DejaVu Sans Mono", "Cascadia Code", monospace; font-size: 30px; font-weight: 700; fill: #00C2FF; }</style>
+  <clipPath id="c0"><rect x="0" y="0" height="56" width="0">
+    <animate attributeName="width" dur="23.4s" begin="0.0s" repeatCount="indefinite" values="0;379;379;379;379" keyTimes="0;0.0500;0.1022;0.1111;1"/>
+  </rect></clipPath>
+  <g clip-path="url(#c0)" opacity="0">
+    <animate attributeName="opacity" dur="23.4s" begin="0.0s" repeatCount="indefinite" values="1;1;1;0;0" keyTimes="0;0.0500;0.1022;0.1111;1" calcMode="discrete"/>
+    <text x="20" y="38">› Clipboard Manager</text>
+  </g>
+  <clipPath id="c1"><rect x="0" y="0" height="56" width="0">
+    <animate attributeName="width" dur="23.4s" begin="2.6s" repeatCount="indefinite" values="0;288;288;288;288" keyTimes="0;0.0500;0.1022;0.1111;1"/>
+  </rect></clipPath>
+  <g clip-path="url(#c1)" opacity="0">
+    <animate attributeName="opacity" dur="23.4s" begin="2.6s" repeatCount="indefinite" values="1;1;1;0;0" keyTimes="0;0.0500;0.1022;0.1111;1" calcMode="discrete"/>
+    <text x="20" y="38">› Voice Typing</text>
+  </g>
+  <clipPath id="c2"><rect x="0" y="0" height="56" width="0">
+    <animate attributeName="width" dur="23.4s" begin="5.2s" repeatCount="indefinite" values="0;307;307;307;307" keyTimes="0;0.0500;0.1022;0.1111;1"/>
+  </rect></clipPath>
+  <g clip-path="url(#c2)" opacity="0">
+    <animate attributeName="opacity" dur="23.4s" begin="5.2s" repeatCount="indefinite" values="1;1;1;0;0" keyTimes="0;0.0500;0.1022;0.1111;1" calcMode="discrete"/>
+    <text x="20" y="38">› Smart Windows</text>
+  </g>
+  <clipPath id="c3"><rect x="0" y="0" height="56" width="0">
+    <animate attributeName="width" dur="23.4s" begin="7.8s" repeatCount="indefinite" values="0;379;379;379;379" keyTimes="0;0.0500;0.1022;0.1111;1"/>
+  </rect></clipPath>
+  <g clip-path="url(#c3)" opacity="0">
+    <animate attributeName="opacity" dur="23.4s" begin="7.8s" repeatCount="indefinite" values="1;1;1;0;0" keyTimes="0;0.0500;0.1022;0.1111;1" calcMode="discrete"/>
+    <text x="20" y="38">› AI Face Assistant</text>
+  </g>
+  <clipPath id="c4"><rect x="0" y="0" height="56" width="0">
+    <animate attributeName="width" dur="23.4s" begin="10.4s" repeatCount="indefinite" values="0;252;252;252;252" keyTimes="0;0.0500;0.1022;0.1111;1"/>
+  </rect></clipPath>
+  <g clip-path="url(#c4)" opacity="0">
+    <animate attributeName="opacity" dur="23.4s" begin="10.4s" repeatCount="indefinite" values="1;1;1;0;0" keyTimes="0;0.0500;0.1022;0.1111;1" calcMode="discrete"/>
+    <text x="20" y="38">› Focus Mode</text>
+  </g>
+  <clipPath id="c5"><rect x="0" y="0" height="56" width="0">
+    <animate attributeName="width" dur="23.4s" begin="13.0s" repeatCount="indefinite" values="0;161;161;161;161" keyTimes="0;0.0500;0.1022;0.1111;1"/>
+  </rect></clipPath>
+  <g clip-path="url(#c5)" opacity="0">
+    <animate attributeName="opacity" dur="23.4s" begin="13.0s" repeatCount="indefinite" values="1;1;1;0;0" keyTimes="0;0.0500;0.1022;0.1111;1" calcMode="discrete"/>
+    <text x="20" y="38">› Notes</text>
+  </g>
+  <clipPath id="c6"><rect x="0" y="0" height="56" width="0">
+    <animate attributeName="width" dur="23.4s" begin="15.6s" repeatCount="indefinite" values="0;252;252;252;252" keyTimes="0;0.0500;0.1022;0.1111;1"/>
+  </rect></clipPath>
+  <g clip-path="url(#c6)" opacity="0">
+    <animate attributeName="opacity" dur="23.4s" begin="15.6s" repeatCount="indefinite" values="1;1;1;0;0" keyTimes="0;0.0500;0.1022;0.1111;1" calcMode="discrete"/>
+    <text x="20" y="38">› Screenshot</text>
+  </g>
+  <clipPath id="c7"><rect x="0" y="0" height="56" width="0">
+    <animate attributeName="width" dur="23.4s" begin="18.2s" repeatCount="indefinite" values="0;379;379;379;379" keyTimes="0;0.0500;0.1022;0.1111;1"/>
+  </rect></clipPath>
+  <g clip-path="url(#c7)" opacity="0">
+    <animate attributeName="opacity" dur="23.4s" begin="18.2s" repeatCount="indefinite" values="1;1;1;0;0" keyTimes="0;0.0500;0.1022;0.1111;1" calcMode="discrete"/>
+    <text x="20" y="38">› Project Dashboard</text>
+  </g>
+  <clipPath id="c8"><rect x="0" y="0" height="56" width="0">
+    <animate attributeName="width" dur="23.4s" begin="20.8s" repeatCount="indefinite" values="0;325;325;325;325" keyTimes="0;0.0500;0.1022;0.1111;1"/>
+  </rect></clipPath>
+  <g clip-path="url(#c8)" opacity="0">
+    <animate attributeName="opacity" dur="23.4s" begin="20.8s" repeatCount="indefinite" values="1;1;1;0;0" keyTimes="0;0.0500;0.1022;0.1111;1" calcMode="discrete"/>
+    <text x="20" y="38">› File Organizer</text>
+  </g>
+</svg>

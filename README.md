@@ -1,108 +1,203 @@
-# Powernux
+<div align="center">
 
-Le centre de contrôle des outils de productivité pour Linux : une plateforme modulaire où chaque outil s'installe et s'active à la demande.
+<img src="docs/assets/banner.svg" alt="Powernux — The modular productivity toolkit for Linux" width="100%">
 
-## Application principale
+<br>
 
-Tauri 2 + React + TypeScript :
+<img src="docs/assets/typing.svg" alt="Clipboard Manager · Voice Typing · Smart Windows · AI Face Assistant · Focus Mode · Notes · Screenshot · Project Dashboard · File Organizer" height="56">
 
-- **Dashboard** — vue d'ensemble, accès rapide, feuille de route
-- **Tools Manager** — catalogue des outils : Download, Remove, ON / OFF
-- **Settings** — thème, couleur d'accent, barre latérale compacte (stockés localement)
-- **About** — présentation du projet, développeur, liens
+<br><br>
 
-## Architecture des modules (Plugin System)
+[![Release](https://img.shields.io/github/v/release/hakim-AI-hub-88/powernux?style=for-the-badge&color=00C2FF&labelColor=1E1B4B&label=release)](https://github.com/hakim-AI-hub-88/powernux/releases/latest)
+[![Downloads](https://img.shields.io/github/downloads/hakim-AI-hub-88/powernux/total?style=for-the-badge&color=8B7CFF&labelColor=1E1B4B)](https://github.com/hakim-AI-hub-88/powernux/releases)
+[![License: MIT](https://img.shields.io/badge/license-MIT-2EE6A6?style=for-the-badge&labelColor=1E1B4B)](LICENSE)
+<br>
+![Linux](https://img.shields.io/badge/Linux-FCC624?style=flat-square&logo=linux&logoColor=black)
+![GNOME 45–50](https://img.shields.io/badge/GNOME-45–50-4A86CF?style=flat-square&logo=gnome&logoColor=white)
+![Wayland](https://img.shields.io/badge/Wayland-ready-FFBC00?style=flat-square&logo=wayland&logoColor=black)
+![Rust](https://img.shields.io/badge/Rust-000000?style=flat-square&logo=rust&logoColor=white)
+![Tauri 2](https://img.shields.io/badge/Tauri-2-24C8DB?style=flat-square&logo=tauri&logoColor=white)
+![React 19](https://img.shields.io/badge/React-19-61DAFB?style=flat-square&logo=react&logoColor=black)
 
-Powernux Core ne contient aucun outil. Chaque outil est un **programme indépendant**,
-publié dans un catalogue (`registry/registry.json`) et installé à la demande.
+<br>
 
-```
-                       Powernux Core
-                            |
-   ---------------------------------------------------
-   |                |                |               |
-Clipboard      Smart Window    Voice Typing      AI Assistant
-Manager        Manager         (dictée)          (bientôt)
-```
+<a href="https://github.com/hakim-AI-hub-88/powernux/releases/latest/download/powernux_amd64.deb">
+  <img src="https://img.shields.io/badge/⬇%20Download%20for%20Ubuntu-.deb%20·%20latest%20version-00C2FF?style=for-the-badge&labelColor=1E1B4B" alt="Download the latest .deb" height="44">
+</a>
 
-- **Download** : télécharge l'archive → vérifie le SHA-256 → installe dans
-  `~/.local/share/powernux/tools/<id>/` → active.
-- **Remove** : arrête le module, supprime ses raccourcis, ses fichiers et ses données.
-- **ON / OFF** : démarre / arrête le module et ses raccourcis globaux (GNOME).
+<sub><a href="https://github.com/hakim-AI-hub-88/powernux/releases">All releases</a> · <a href="README.fr.md">🇫🇷 Lire en français</a></sub>
 
-Chaque module contient un `manifest.json` (réglages, raccourcis, actions, hooks) : Powernux
-génère automatiquement sa page de réglages. Protocole d'un module : `--reload`, `--quit`,
-les arguments de ses actions (ex. `--show`), ses `collections` (listes gérées par le module,
-ex. espaces de travail) et `hooks.uninstall` (appelé lors de « Remove »).
-Types de réglages : `toggle`, `select`, `shortcut`, `text`, `secret` (clé API, fichiers en 0600).
-Formulaires de collection (`create.fields`) : `text`, `number`, `toggle`, `select`, `apps` (applications installées), avec `showIf`.
-Un module peut écrire `tools/<id>/status.json` (`{level, message}`) pour informer l'utilisateur.
+</div>
 
-| Module | Type | Rôle |
-|---|---|---|
-| `tools/clipboard` | Tauri (fenêtre) | Historique du presse-papiers (`Super+Shift+V`) |
-| `tools/window-pin` | Rust + extension GNOME Shell | Smart Window Manager : Always On Top (`Win+Shift+T`), organisation auto (`Win+Shift+O`), espaces de travail |
-| `tools/voice-typing` | Rust + extension GNOME Shell | Dictée vocale (`Win+E` maintenu) : notch animé, transcription, collage auto |
-| `tools/ai-face` | Rust + extension GNOME Shell | Visage IA animé (notch) qui explique les erreurs (Groq, OpenAI, Gemini, Mistral, OpenRouter, Ollama) (`Win+Shift+A` sur une sélection, surveillance du journal) |
-| `tools/focus-mode` | Rust + extension GNOME Shell | Modes de concentration et Pomodoro, notch sous la barre du haut (`Win+Shift+F` pause) |
-| `tools/screenshot` | Rust | Capture d'écran GNOME sur `Win+Shift+S` |
-| `tools/projects` | Rust | Project Dashboard : projets, technologies, VS Code / terminal / lancement |
-| `tools/file-organizer` | Rust | Rangement de dossier par type + doublons (corbeille, annulation) |
-| `tools/shared/notch` | JavaScript | Cadre « notch » commun aux extensions GNOME Shell |
-| `tools/shared/gnome-extension` | bibliothèque Rust | Code commun des modules à extension GNOME Shell |
+---
 
-### Démarrage à l'ouverture de session
+## ✨ Why Powernux?
 
-Quand au moins un outil est actif, Powernux crée `~/.config/autostart/powernux-tools.desktop`,
-qui lance `powernux --autostart` : ce mode démarre uniquement les outils actifs, sans fenêtre ni
-moteur web, puis se termine (~0,5 s). L'application complète ne s'ouvre que pour gérer les outils.
-Option : Settings → Démarrage.
+Powernux brings the small utilities that save you time every day into **one modern app** for the Linux desktop.
+The app itself is tiny: **every tool is an independent module** that you install with one click, turn on or off,
+and that runs in the background **without keeping Powernux open**.
 
-### Créer / publier un module
+- 🧩 **Modular** — install only what you need; tools are downloaded from GitHub and updated automatically.
+- 🪶 **Light** — only active tools run; Powernux opens only when you want to change something.
+- ⌨️ **Keyboard-first** — every tool has a global shortcut that works in any application.
+- 🔒 **Safe** — signed tools, strict Content Security Policy, API keys in the GNOME Keyring.
+- 🌍 **English & French** — the whole interface, saved across restarts.
+
+## 🎬 Demo
+
+<table>
+  <tr>
+    <td width="50%"><img src="docs/media/voice-typing.svg" alt="Voice Typing demo" width="100%"></td>
+    <td width="50%"><img src="docs/media/ai-face.svg" alt="AI Face Assistant demo" width="100%"></td>
+  </tr>
+  <tr>
+    <td width="50%"><img src="docs/media/focus-mode.svg" alt="Focus Mode demo" width="100%"></td>
+    <td width="50%"><img src="docs/media/smart-windows.svg" alt="Smart Window Manager demo" width="100%"></td>
+  </tr>
+</table>
+
+## 🧰 Tools
+
+| | Tool | What it does | Shortcut |
+|:-:|---|---|:-:|
+| <img src="docs/assets/icons/clipboard.svg" width="24"> | **Clipboard Manager** | Clipboard history with pinning — ignores passwords copied from password managers | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>V</kbd> |
+| <img src="docs/assets/icons/windows.svg" width="24"> | **Smart Window Manager** | Always-on-top with a colored border, auto-arrange (grid, 70 / 30…), workspaces restored in one shortcut | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>T</kbd> / <kbd>O</kbd> |
+| <img src="docs/assets/icons/microphone.svg" width="24"> | **Voice Typing** | Hold, speak, release: transcribed, copied and pasted for you (Groq, OpenAI, AssemblyAI or your own API) | hold <kbd>Win</kbd> + <kbd>E</kbd> |
+| <img src="docs/assets/icons/face.svg" width="24"> | **AI Face Assistant** | An animated AI face in a notch explains your errors and suggests the fix (Groq, OpenAI, Gemini, Mistral, OpenRouter, Ollama) | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>A</kbd> |
+| <img src="docs/assets/icons/focus.svg" width="24"> | **Focus Mode** | Focus sessions & Pomodoro: opens your apps, mutes notifications, blocks distractions | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>F</kbd> |
+| <img src="docs/assets/icons/notes.svg" width="24"> | **Notes** | Structured notepad: notebooks, headings, checklists, search | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>N</kbd> |
+| <img src="docs/assets/icons/camera.svg" width="24"> | **Screenshot** | Area, window or full-screen capture, copied to the clipboard | <kbd>Win</kbd> + <kbd>Shift</kbd> + <kbd>S</kbd> |
+| <img src="docs/assets/icons/projects.svg" width="24"> | **Project Dashboard** | Your projects with their stack and last change; open in VS Code, the terminal, or run them | — |
+| <img src="docs/assets/icons/files.svg" width="24"> | **Smart File Organizer** | Sorts a folder by type and finds duplicate files (to the trash, with undo) | — |
+| <img src="docs/assets/icons/robot.svg" width="24"> | **AI Copilot** | Desktop AI assistant in a notch, linked to the terminal and the screen | *coming soon* |
+
+## 🚀 Install
+
+Requires **Ubuntu 24.04 or newer** (or another distribution with **GNOME 45–50**), x86-64.
 
 ```bash
-npm run package:clipboard     # compile tools/clipboard, crée l'archive, met à jour registry.json
-npm run package:window-pin
-npm run package:voice-typing
+wget https://github.com/hakim-AI-hub-88/powernux/releases/latest/download/powernux_amd64.deb
+sudo apt install ./powernux_amd64.deb
+powernux
 ```
 
-En développement, Powernux lit le registre local `registry/registry.json`.
-En production, l'adresse du registre GitHub se règle dans `src-tauri/src/tools/mod.rs`
-(`RELEASE_REGISTRY`) ou dans Settings → Source des outils.
+Then open **Tools Manager**, click **Download** on the tools you want — that's it.
+Tools that integrate with GNOME Shell (Smart Windows, Voice Typing, Focus Mode, AI Face) need you to
+**log out and back in once** after their first install.
 
-## Lancer
+## 🏗️ How it works
+
+```mermaid
+flowchart LR
+    subgraph GitHub["GitHub · hakim-AI-hub-88/powernux"]
+        REG["registry/registry.json<br/>tool catalog"]
+        REL["Releases<br/>.deb + signed tool archives"]
+    end
+    subgraph PC["Your computer"]
+        APP["Powernux app<br/>(opens only to manage tools)"]
+        AUTO["powernux --autostart<br/>at login, no window"]
+        subgraph TOOLS["Independent tools"]
+            T1["Clipboard"] & T2["Voice Typing"] & T3["Smart Windows"] & T4["…"]
+        end
+        EXT["GNOME Shell extensions<br/>(notch, shortcuts, windows)"]
+    end
+    APP -- "1 · reads the catalog" --> REG
+    APP -- "2 · downloads, checks SHA-256 + Ed25519 signature" --> REL
+    APP -- "3 · installs & turns on" --> TOOLS
+    AUTO -- "starts active tools" --> TOOLS
+    TOOLS <--> EXT
+```
+
+## 🔒 Privacy & security
+
+- **No account, no analytics, no telemetry.** Data leaves your computer only for the service *you* pick
+  (e.g. your voice to the transcription service you chose) — see **[PRIVACY.md](PRIVACY.md)**.
+- **Signed tools**: Powernux refuses any tool whose Ed25519 signature or SHA-256 does not match.
+- **API keys** are stored encrypted in the **GNOME Keyring**, never sent to the interface.
+- **Clipboard Manager** ignores copies marked as secret by password managers and can auto-clear its history.
+- Found a vulnerability? Please report it privately — see **[SECURITY.md](SECURITY.md)**.
+
+## ❓ FAQ
+
+<details>
+<summary><b>Why do I need to log out and back in once?</b></summary>
+
+On Wayland, only GNOME Shell may touch other apps' windows, the keyboard or the top of the screen.
+Tools like Smart Windows or Voice Typing therefore ship a small GNOME Shell extension, and GNOME loads new
+extensions only at login. You only do it once per tool.
+</details>
+
+<details>
+<summary><b>Where do I put my API keys? Are they safe?</b></summary>
+
+In the tool's settings (e.g. *Voice Typing → Groq API key*). Keys are stored in the GNOME Keyring (encrypted)
+and only read by the tool that needs them. For a fully local setup, use **Ollama** with AI Face — no key, nothing sent.
+</details>
+
+<details>
+<summary><b>Does Powernux use a lot of resources?</b></summary>
+
+No. At login, `powernux --autostart` starts only the tools you turned on and exits in about half a second.
+The Powernux window is opened only to manage tools. Notes, for example, uses nothing at all while it is closed.
+</details>
+
+<details>
+<summary><b>Which shortcuts can I change?</b></summary>
+
+All of them, in each tool's settings — Powernux warns you if a shortcut is already used by GNOME or another tool.
+Workspaces in Smart Window Manager can each have their own shortcut (e.g. <kbd>Win</kbd> + <kbd>Alt</kbd> + <kbd>1</kbd> → "Coding").
+</details>
+
+<details>
+<summary><b>How do I uninstall?</b></summary>
+
+**Settings → Uninstall everything** (removes tools, data, keys, shortcuts, extensions and startup entry), then:
 
 ```bash
+sudo apt remove powernux
+```
+</details>
+
+## 🛠️ Build from source
+
+```bash
+git clone https://github.com/hakim-AI-hub-88/powernux.git && cd powernux
 npm install
-npm run tauri dev
+npm run tauri dev      # run in development
+npm run tauri build    # produce the .deb / .rpm / .AppImage
 ```
 
-## Structure
+Developer guide (architecture, tool protocol, packaging): **[docs/DEVELOPMENT.md](docs/DEVELOPMENT.md)**.
 
+## 🧩 Create your own tool
+
+A tool is an independent program plus a `manifest.json`. Powernux builds its settings page automatically:
+
+```json
+{
+  "id": "my-tool",
+  "name": "My Tool",
+  "version": "1.0.0",
+  "entry": "my-tool-binary",
+  "settings": [
+    { "key": "shortcut", "type": "shortcut", "label": "Shortcut", "default": "<Super><Shift>m" }
+  ],
+  "shortcuts": [{ "setting": "shortcut", "name": "My Tool", "args": ["--show"] }]
+}
 ```
-src/
-├── App.tsx              navigation entre les pages
-├── components/          Sidebar, icônes
-├── pages/               Dashboard, ToolsManager, Settings, About
-├── data/app.ts          infos de l'app
-├── lib/api.ts           appels au backend (système de modules)
-└── state/               préférences de l'interface, état des outils
-src-tauri/src/tools/     système de modules : registre, installation, activation
-tools/clipboard/         module Clipboard Manager (programme indépendant)
-tools/window-pin/        module Smart Window Manager (programme + extension GNOME Shell)
-tools/voice-typing/      module Voice Typing (programme + extension GNOME Shell)
-tools/shared/            code partagé entre modules
-registry/                catalogue des outils + archives (packages/)
-```
 
-## Vie privée et sécurité
+Your program receives `--reload` when settings change and `--quit` when it is turned off.
+`npm run package:my-tool` compiles, **signs** and adds it to the catalog.
 
-- **Vie privée** : ce qui reste sur l'ordinateur et ce qui part vers un service → [PRIVACY.md](PRIVACY.md)
-- **Sécurité** : outils signés (Ed25519), CSP stricte, clés API dans le trousseau GNOME → [SECURITY.md](SECURITY.md)
-- **Licence** : [MIT](LICENSE) · composants tiers : [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
+## 👤 Author
 
-### Publier un outil (mainteneur)
+**Es-somid Abdelhakim** — Engineering student
 
-Les archives sont signées par `tools/signer` (`powernux-sign`). La clé privée est dans
-`~/.config/powernux-signing/tools.key` (ou la variable `POWERNUX_SIGNING_KEY` en CI) et ne doit
-jamais être ajoutée au dépôt. `npm run package:<outil>` compile, signe et met à jour le catalogue.
+[![LinkedIn](https://img.shields.io/badge/LinkedIn-abdelhakim--essomid-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://ma.linkedin.com/in/abdelhakim-essomid)
+[![GitHub](https://img.shields.io/badge/GitHub-hakim--AI--hub--88-181717?style=for-the-badge&logo=github&logoColor=white)](https://github.com/hakim-AI-hub-88)
+
+If Powernux saves you time, a ⭐ on the repository helps a lot!
+
+## 📄 License
+
+[MIT](LICENSE) © 2026 Es-somid Abdelhakim · Third-party components: [THIRD-PARTY-NOTICES.md](THIRD-PARTY-NOTICES.md)
