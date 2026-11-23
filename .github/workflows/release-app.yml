@@ -1,5 +1,6 @@
-# Publication de l'application : tag « v0.11.0 » → .deb, .rpm et .AppImage dans une Release GitHub.
-# Compilé sur Ubuntu 24.04 pour fonctionner chez tous les utilisateurs d'Ubuntu 24.04 et plus récents.
+# Publication de l'application : tag « v0.11.0 » →
+#   x86-64 (Intel/AMD) : .deb, .rpm, .AppImage   ·   ARM64 : .deb, .rpm
+# Compilé sur Ubuntu 24.04 : fonctionne sur Ubuntu 24.04+, Debian 13+, Fedora 40+, etc. (GNOME 45–50).
 name: Release app
 
 on:
@@ -10,9 +11,19 @@ permissions:
   contents: write
 
 jobs:
-  release:
-    name: Build & publish Powernux
-    runs-on: ubuntu-24.04
+  build:
+    name: Build Powernux (${{ matrix.arch }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - arch: amd64
+            runner: ubuntu-24.04
+            bundles: deb,rpm,appimage
+          - arch: arm64
+            runner: ubuntu-24.04-arm
+            bundles: deb,rpm
     steps:
       - uses: actions/checkout@v4
 
@@ -23,7 +34,6 @@ jobs:
             echo "::error::Tag $GITHUB_REF_NAME does not match the app version $VERSION (src-tauri/tauri.conf.json)"
             exit 1
           fi
-          echo "VERSION=$VERSION" >> "$GITHUB_ENV"
 
       - name: Install system dependencies
         run: |
@@ -41,28 +51,55 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: src-tauri -> target
+          key: ${{ matrix.arch }}
 
       - run: npm ci
 
       - name: Build packages
-        run: npm run tauri build -- --bundles deb,rpm,appimage
+        run: npm run tauri build -- --bundles ${{ matrix.bundles }}
 
       - name: Collect files
         run: |
           mkdir -p out
-          cp src-tauri/target/release/bundle/deb/*.deb out/
-          cp src-tauri/target/release/bundle/rpm/*.rpm out/
-          cp src-tauri/target/release/bundle/appimage/*.AppImage out/
-          # Nom fixe : le bouton « Download » du README pointe toujours vers la dernière version.
-          cp out/*_amd64.deb out/powernux_amd64.deb
-          (cd out && sha256sum * > SHA256SUMS.txt)
+          B=src-tauri/target/release/bundle
+          cp $B/deb/*.deb $B/rpm/*.rpm out/
+          [ -d $B/appimage ] && cp $B/appimage/*.AppImage out/ || true
+          # Noms fixes : les boutons du README pointent toujours vers la dernière version.
+          cp out/*.deb "out/powernux_${{ matrix.arch }}.deb"
+          RPM_ARCH=$([ "${{ matrix.arch }}" = amd64 ] && echo x86_64 || echo aarch64)
+          cp out/Powernux-*.rpm "out/powernux.$RPM_ARCH.rpm"
+          ls out/*.AppImage >/dev/null 2>&1 && cp out/Powernux_*.AppImage "out/powernux_${{ matrix.arch }}.AppImage" || true
           ls -la out
 
-      - name: Publish the release
+      - uses: actions/upload-artifact@v4
+        with:
+          name: powernux-${{ matrix.arch }}
+          path: out/*
+          if-no-files-found: error
+
+  publish:
+    name: Publish the release
+    needs: build
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
+
+      - name: Create the release
         env:
           GH_TOKEN: ${{ github.token }}
+          GH_REPO: ${{ github.repository }}
         run: |
+          if ! ls out/*amd64*.deb >/dev/null 2>&1; then
+            echo "::error::The x86-64 build failed: nothing to publish"
+            exit 1
+          fi
+          (cd out && sha256sum * > SHA256SUMS.txt)
+          ls -la out
           gh release create "$GITHUB_REF_NAME" out/* \
-            --title "Powernux $VERSION" \
+            --title "Powernux ${GITHUB_REF_NAME#v}" \
             --generate-notes \
             --latest

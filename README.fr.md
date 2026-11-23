@@ -21,9 +21,11 @@
 
 <br>
 
-<a href="https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux_amd64.deb">
-  <img src="https://img.shields.io/badge/⬇%20Télécharger%20pour%20Ubuntu-.deb%20·%20dernière%20version-00C2FF?style=for-the-badge&labelColor=1E1B4B" alt="Télécharger le .deb" height="44">
-</a>
+<a href="https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux_amd64.deb"><img src="https://img.shields.io/badge/Ubuntu%20%C2%B7%20Debian-.deb-00C2FF?style=for-the-badge&logo=ubuntu&logoColor=white&labelColor=1E1B4B" alt="Télécharger .deb" height="40"></a>
+<a href="https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux.x86_64.rpm"><img src="https://img.shields.io/badge/Fedora%20%C2%B7%20openSUSE-.rpm-3C6EB4?style=for-the-badge&logo=fedora&logoColor=white&labelColor=1E1B4B" alt="Télécharger .rpm" height="40"></a>
+<a href="https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux_amd64.AppImage"><img src="https://img.shields.io/badge/AppImage-toutes%20distributions-8B7CFF?style=for-the-badge&logo=linux&logoColor=black&labelColor=1E1B4B" alt="Télécharger AppImage" height="40"></a>
+<br>
+<sub>x86-64 (Intel / AMD) · <a href="https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux_arm64.deb">ARM64 .deb</a> · <a href="https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux.aarch64.rpm">ARM64 .rpm</a></sub>
 
 <sub><a href="https://github.com/hakim-AI-hub-88/Powernux/releases">Toutes les versions</a> · <a href="README.md">🇬🇧 Read in English</a></sub>
 
@@ -73,17 +75,21 @@ en un clic, activez ou désactivez, et qui fonctionne en arrière-plan **sans ga
 
 ## 🚀 Installation
 
-Nécessite **Ubuntu 24.04 ou plus récent** (ou une autre distribution avec **GNOME 45 à 50**), x86-64.
+Fonctionne sur tout PC fixe ou portable Linux avec **GNOME 45 à 50** — Ubuntu 24.04+, Debian 13+, Fedora 40+, Linux Mint,
+Pop!_OS, openSUSE… — avec un processeur **Intel / AMD (x86-64)** ou **ARM64**.
 
-```bash
-wget https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux_amd64.deb
-sudo apt install ./powernux_amd64.deb
-powernux
-```
+| Système | Installation |
+|---|---|
+| **Ubuntu, Debian, Mint, Pop!_OS** | `wget https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux_amd64.deb && sudo apt install ./powernux_amd64.deb` |
+| **Fedora, openSUSE, RHEL** | `sudo dnf install https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux.x86_64.rpm` |
+| **Toutes distributions** (AppImage) | `wget https://github.com/hakim-AI-hub-88/Powernux/releases/latest/download/powernux_amd64.AppImage && chmod +x powernux_amd64.AppImage && ./powernux_amd64.AppImage` |
+| **ARM64** (Snapdragon, ThinkPad X13s, Asahi…) | mêmes commandes avec `powernux_arm64.deb` ou `powernux.aarch64.rpm` |
 
-Ouvrez ensuite le **Gestionnaire d'outils** et cliquez sur **Télécharger** pour les outils voulus — c'est tout.
-Les outils liés à GNOME Shell (Smart Windows, Voice Typing, Focus Mode, AI Face) demandent de
-**se déconnecter puis se reconnecter une fois** après leur première installation.
+Ouvrez ensuite le **Gestionnaire d'outils** et cliquez sur **Télécharger** pour les outils voulus — Powernux choisit
+la bonne version pour votre processeur. Les outils liés à GNOME Shell (Smart Windows, Voice Typing, Focus Mode, AI Face)
+demandent de **se déconnecter puis se reconnecter une fois** après leur première installation.
+
+> Windows et macOS ne sont pas pris en charge : les outils reposent sur GNOME Shell et Wayland.
 
 ## 🏗️ Fonctionnement
 

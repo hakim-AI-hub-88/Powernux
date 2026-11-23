@@ -1,6 +1,6 @@
 # Publication d'un outil : tag « <outil>-v<version> » (ex. notes-v1.0.1)
-#   → compilation sur Ubuntu 24.04, archive signée (Ed25519), Release GitHub,
-#   → mise à jour automatique de registry/registry.json sur main (empreinte SHA-256 + signature).
+#   → compilation sur Ubuntu 24.04 en x86-64 et ARM64, archives signées (Ed25519), Release GitHub,
+#   → mise à jour automatique de registry/registry.json sur main (versions, empreintes, signatures).
 name: Release tool
 
 on:
@@ -12,17 +12,19 @@ permissions:
 
 # Une seule mise à jour du catalogue à la fois (plusieurs outils peuvent être publiés ensemble).
 concurrency:
-  group: registry
+  group: registry-${{ github.ref_name }}
   cancel-in-progress: false
 
 jobs:
-  release:
-    name: Build, sign & publish ${{ github.ref_name }}
-    runs-on: ubuntu-24.04
+  build:
+    name: Build ${{ github.ref_name }} (${{ matrix.runner }})
+    runs-on: ${{ matrix.runner }}
+    strategy:
+      fail-fast: false
+      matrix:
+        runner: [ubuntu-24.04, ubuntu-24.04-arm]
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - name: Read the tag
         run: |
@@ -38,14 +40,8 @@ jobs:
             echo "::error::Tag version $VERSION does not match tools/$ID/manifest.json ($MANIFEST_VERSION)"
             exit 1
           fi
-          NAME=$(node -p "require('./tools/$ID/manifest.json').name")
           CARGO_DIR="tools/$ID"; [ -d "tools/$ID/src-tauri" ] && CARGO_DIR="tools/$ID/src-tauri"
-          {
-            echo "TOOL_ID=$ID"
-            echo "TOOL_VERSION=$VERSION"
-            echo "TOOL_NAME=$NAME"
-            echo "CARGO_DIR=$CARGO_DIR"
-          } >> "$GITHUB_ENV"
+          { echo "TOOL_ID=$ID"; echo "TOOL_VERSION=$VERSION"; echo "CARGO_DIR=$CARGO_DIR"; } >> "$GITHUB_ENV"
 
       - name: Install system dependencies
         run: |
@@ -63,6 +59,7 @@ jobs:
       - uses: Swatinem/rust-cache@v2
         with:
           workspaces: ${{ env.CARGO_DIR }} -> target
+          key: ${{ matrix.runner }}
 
       - run: npm ci
 
@@ -76,15 +73,46 @@ jobs:
             exit 1
           fi
           bash tools/package-tool.sh "$TOOL_ID"
-          cp registry/registry.json "$RUNNER_TEMP/registry-built.json"
+          mkdir -p out
+          cp registry/packages/$TOOL_ID-$TOOL_VERSION-linux-*.tar.gz out/
+          # Entrée du catalogue pour ce processeur (fusionnée ensuite avec les autres).
+          python3 -c "import json,sys; r=json.load(open('registry/registry.json')); \
+            json.dump(next(t for t in r['tools'] if t['id']=='$TOOL_ID'), open('out/entry-$(uname -m).json','w'))"
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: ${{ github.ref_name }}-${{ matrix.runner }}
+          path: out/*
+          if-no-files-found: error
+
+  publish:
+    name: Publish ${{ github.ref_name }}
+    needs: build
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-24.04
+    concurrency:
+      group: registry
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/download-artifact@v4
+        with:
+          path: out
+          merge-multiple: true
 
       - name: Publish the release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release create "$GITHUB_REF_NAME" \
-            "registry/packages/$TOOL_ID-$TOOL_VERSION-linux-x86_64.tar.gz" \
-            --title "$TOOL_NAME $TOOL_VERSION" \
+          ls out/entry-x86_64.json >/dev/null 2>&1 || { echo "::error::The x86-64 build failed: nothing to publish"; exit 1; }
+          NAME=$(python3 -c "import json; print(json.load(open('out/entry-x86_64.json'))['name'])")
+          VERSION="${GITHUB_REF_NAME##*-v}"
+          echo "TOOL_NAME=$NAME" >> "$GITHUB_ENV"
+          gh release create "$GITHUB_REF_NAME" out/*.tar.gz \
+            --title "$NAME $VERSION" \
             --notes "Tool for Powernux — install or update it from Powernux → Tools Manager." \
             --latest=false
 
@@ -96,24 +124,28 @@ jobs:
           for attempt in 1 2 3; do
             git fetch origin main
             git checkout -f -B main origin/main
-            python3 - "$RUNNER_TEMP/registry-built.json" registry/registry.json "$TOOL_ID" <<'PY'
-          import json, sys
-          built_path, target_path, tool_id = sys.argv[1:]
-          built = next(t for t in json.load(open(built_path))["tools"] if t["id"] == tool_id)
+            python3 - out registry/registry.json <<'PY'
+          import glob, json, os, sys
+          out_dir, target_path = sys.argv[1:]
+          entries = [json.load(open(p)) for p in sorted(glob.glob(os.path.join(out_dir, "entry-*.json")))]
+          # Métadonnées de la compilation x86-64, archives de tous les processeurs (même version).
+          entry = next((e for e in entries if "linux-x86_64" in e.get("packages", {})), entries[0])
+          entry["packages"] = {k: v for e in entries for k, v in e.get("packages", {}).items()}
           registry = json.load(open(target_path))
           for i, t in enumerate(registry["tools"]):
-              if t["id"] == tool_id:
-                  registry["tools"][i] = built
+              if t["id"] == entry["id"]:
+                  registry["tools"][i] = entry
                   break
           else:
-              registry["tools"].append(built)
+              registry["tools"].append(entry)
           with open(target_path, "w") as f:
               json.dump(registry, f, indent=2, ensure_ascii=False)
               f.write("\n")
+          print("platforms:", ", ".join(entry["packages"]))
           PY
             git add registry/registry.json
             if git diff --cached --quiet; then echo "Catalog already up to date"; exit 0; fi
-            git commit -m "registry: $TOOL_NAME $TOOL_VERSION"
+            git commit -m "registry: $TOOL_NAME ${GITHUB_REF_NAME##*-v}"
             if git push origin main; then exit 0; fi
             sleep 5
           done
