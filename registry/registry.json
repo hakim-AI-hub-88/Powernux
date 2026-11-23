@@ -553,11 +553,17 @@
       "minPowernuxVersion": "0.6.0",
       "version": "1.0.0",
       "packages": {
+        "linux-aarch64": {
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/screenshot-v1.0.0/screenshot-1.0.0-linux-aarch64.tar.gz",
+          "sha256": "cbe62e327df622ec338cac8147d5dd55ed2ebb474cff4515fa36299e92ceb5f5",
+          "size": 190323,
+          "signature": "nUjSYCKc6epo7ScZ+tmJmx2phbByY/OfdCirYbH2WTPOIhvVAYMS150L0cTKrtxDoqEdlpeJgXyywN6imBQkCw=="
+        },
         "linux-x86_64": {
-          "url": "packages/screenshot-1.0.0-linux-x86_64.tar.gz",
-          "sha256": "7ba14a7c9a576c4725ac8ab1858c4a7163568c31e1a48ee628bfdf44ae91c532",
-          "size": 203116,
-          "signature": "mhEse8qPwlALQ840pIF6brFiGnbn3+3eC0TTi9c8GMj31w9zGPJ0Jrmg3Ed1Bf6W8NlD+Lo2Mwj+pbgRwQS7Dg=="
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/screenshot-v1.0.0/screenshot-1.0.0-linux-x86_64.tar.gz",
+          "sha256": "45e16724f4a963552f677fdb21bc1286eb975991cabaf539710b052a867aaaff",
+          "size": 202891,
+          "signature": "ZUNV3B2/uOHTCIGjeDhRTJAM2MjSfyvTu6mI2y9XUMYLEJjJwZKBKjiFIx0DXdmITUH16kF01RchBDJLHyULCQ=="
         }
       },
       "i18n": {
