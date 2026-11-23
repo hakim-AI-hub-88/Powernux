@@ -227,11 +227,17 @@
       "minPowernuxVersion": "0.10.0",
       "version": "1.3.0",
       "packages": {
+        "linux-aarch64": {
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/voice-typing-v1.3.0/voice-typing-1.3.0-linux-aarch64.tar.gz",
+          "sha256": "7d868ff1c13e8e148f461244107dcb835c9e844f799c46f8a59b5036226c1074",
+          "size": 2135326,
+          "signature": "9yFv2dG8KXJk/Xo7rjQZ4QfFmWy4J7R+g/bZBPy+jvglet5GJ1S5siZ8m1Cc+m34rqfYrjpawiewbQG7t1eoCg=="
+        },
         "linux-x86_64": {
-          "url": "packages/voice-typing-1.3.0-linux-x86_64.tar.gz",
-          "sha256": "c4833da5bd42291e27fcd9a8df26902c0f0a58ae2b7037b50c70c163acd3612e",
-          "size": 2329630,
-          "signature": "3mtFArWEkp1ndT0Gn6BJLVkuYhHDiRJ+uNGSk6YPTebc3o7VwMOqX68bDAjTpZAHihHVe0et4jNAUWq2KEcEDg=="
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/voice-typing-v1.3.0/voice-typing-1.3.0-linux-x86_64.tar.gz",
+          "sha256": "a42816452e3d1bfc4f0f109555f842476eaa374057fa8cc47fd7cc256e15e8ef",
+          "size": 2329249,
+          "signature": "59xJHuMEEFITtjnW4ckwBFsSi5GCnHVRtjDl7qoE0T1OCWzq8lkHZwX8nXMz2W8hMHhoqU974xKf1R8CDhR/CA=="
         }
       },
       "i18n": {
