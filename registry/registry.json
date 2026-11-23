@@ -94,11 +94,17 @@
       },
       "version": "1.0.1",
       "packages": {
+        "linux-aarch64": {
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/notes-v1.0.1/notes-1.0.1-linux-aarch64.tar.gz",
+          "sha256": "38348817eb13f142a7447891c6b51ce75df179931f28682722f7afb9c61d51fb",
+          "size": 1762843,
+          "signature": "HCf1bWmtA7mvZiTGB71P1egJDSbfqHJRDdfkBqcLU2vQ4JqBv31yYAmZrYjIQCXGu6LHTEbD65zn4JmL+6X9CA=="
+        },
         "linux-x86_64": {
-          "url": "packages/notes-1.0.1-linux-x86_64.tar.gz",
-          "sha256": "b913d0d7e2b1f24543f9c840fee5b5152b6f30b3fde6441751769b3e8e3c0e47",
-          "size": 1840743,
-          "signature": "LVVNDfBDwxW0QR18t0vY1SgveHn2LfSdQUt3j20Mch/mZ28euqYAUT0fr9dZZTk/k+WRyIcr+iKbzUeFadkIAQ=="
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/notes-v1.0.1/notes-1.0.1-linux-x86_64.tar.gz",
+          "sha256": "c91505f81090a59f5637a15e360aa682c594880c6679dfc241e373013adf88cd",
+          "size": 1840277,
+          "signature": "80hgZftNJ7AGgjUNKtqqwPhdLii7lka8d7yjm7Ezp05MjoNXvEvXst5PiDiyd6BiIk4kZGb/GCBJQ6G29IGIAA=="
         }
       }
     },
