@@ -11,11 +11,17 @@
       "minPowernuxVersion": "0.2.0",
       "version": "1.1.0",
       "packages": {
+        "linux-aarch64": {
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/clipboard-v1.1.0/clipboard-1.1.0-linux-aarch64.tar.gz",
+          "sha256": "86acf51b1f0b086a2f4a8fc24988edc3e9281b599c5825c9e8ad040aa3da683e",
+          "size": 1825715,
+          "signature": "Lv04yZAOUfnCSVBBsrZpsw7qGwQLkKBEpCZlAqCg2IcVVC7rBas43PJ+0M2/BLFDnTdWL2fvU8HmTnlIEwv8Dw=="
+        },
         "linux-x86_64": {
-          "url": "packages/clipboard-1.1.0-linux-x86_64.tar.gz",
-          "sha256": "44f65e63a1dab2afdc673c20b4bb1a6b234ad2011668dde92db26b1b65b0d022",
-          "size": 1903736,
-          "signature": "SjRIreqt3MrqUeVmBi1SbLY0N9NbtWKT07JkiSzF8FZ0/hICSxclqR52cspBp84fNn9yNjwmv0z5T1mPgW2MBw=="
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/clipboard-v1.1.0/clipboard-1.1.0-linux-x86_64.tar.gz",
+          "sha256": "061da6041d0239a74c8da4ca56216bf3ee348f467a1da893869cc16ddac789e6",
+          "size": 1902384,
+          "signature": "G02pmQwRwizSaec9FH2yWds5FnNEQjg0tiPPKiw8jdlOGyfqvohWZz1o8Mx+xdUTeIR+k1JiCwvhPeENyo2BAg=="
         }
       },
       "i18n": {
