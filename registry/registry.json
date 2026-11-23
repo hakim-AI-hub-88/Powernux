@@ -314,11 +314,17 @@
       "minPowernuxVersion": "0.10.0",
       "version": "1.2.0",
       "packages": {
+        "linux-aarch64": {
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/ai-face-v1.2.0/ai-face-1.2.0-linux-aarch64.tar.gz",
+          "sha256": "0222bb2f3fd30ce0e3b930e920f164e8cfaaaad599c3a1ee27623bd5d418e39c",
+          "size": 2151201,
+          "signature": "7nf35tPg68cBmsFajT2iNmTjuy/ZWRyC1omrFnydHajNQGm2mSTGyh+GxXiSkBsC2ZnVq4hT2fxOu2Fq1BHvAA=="
+        },
         "linux-x86_64": {
-          "url": "packages/ai-face-1.2.0-linux-x86_64.tar.gz",
-          "sha256": "c5903d187b90882684214540f5b519b74c1c35d0b77ffdfd4b80b09c347aa151",
-          "size": 2345490,
-          "signature": "qv5ccaLNd+cJv/BqLDKX5o54RlMaZrntwZqDmqhFbqDJcyo8ca1ACN0RdBe0r3z/7wzw3iHzJUw8NXdgJ6OmBA=="
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/ai-face-v1.2.0/ai-face-1.2.0-linux-x86_64.tar.gz",
+          "sha256": "f465c2afdb8fb7080c511464ae6c2b5bc142330366171ff10775d1605cebc8e8",
+          "size": 2346197,
+          "signature": "4b3q/fK2sx669syxMoBMkUiAnMCNmVYRyGVXebcCWkHi7EY9VHFChQufMj26A9yGzm2pvqjlLFF4L4CDSf6jDA=="
         }
       },
       "i18n": {
