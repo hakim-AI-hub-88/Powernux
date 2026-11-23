@@ -35,10 +35,12 @@ fi
 TAGS=()
 for t in $TARGETS; do
   TAG=$(tag_for "$t")
-  if git rev-parse -q --verify "refs/tags/$TAG" >/dev/null || git ls-remote --exit-code --tags origin "$TAG" >/dev/null 2>&1; then
+  if git ls-remote --exit-code --tags origin "$TAG" >/dev/null 2>&1; then
     echo "• $TAG existe déjà : augmentez la version pour publier une mise à jour."
     continue
   fi
+  # Tag local non publié (ex. envoi interrompu) : recréé sur le commit actuel.
+  git tag -d "$TAG" >/dev/null 2>&1 || true
   git tag -a "$TAG" -m "$TAG"
   TAGS+=("$TAG")
   echo "• tag créé : $TAG"
@@ -46,5 +48,9 @@ done
 
 [ ${#TAGS[@]} -eq 0 ] && { echo "Rien à publier."; exit 0; }
 git push origin HEAD
-git push origin "${TAGS[@]}"
+# Un tag à la fois : GitHub ne déclenche aucun workflow si plus de 3 tags arrivent ensemble.
+for TAG in "${TAGS[@]}"; do
+  git push origin "refs/tags/$TAG"
+  sleep 3
+done
 echo "Envoyé. Suivez la publication : https://github.com/hakim-AI-hub-88/Powernux/actions"

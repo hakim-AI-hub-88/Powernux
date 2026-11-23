@@ -24,7 +24,7 @@ jobs:
       matrix:
         runner: [ubuntu-24.04, ubuntu-24.04-arm]
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
 
       - name: Read the tag
         run: |
@@ -49,7 +49,7 @@ jobs:
           sudo apt-get install -y libwebkit2gtk-4.1-dev libgtk-3-dev librsvg2-dev libayatana-appindicator3-dev \
             libssl-dev libxdo-dev libdbus-1-dev pkg-config patchelf build-essential
 
-      - uses: actions/setup-node@v4
+      - uses: actions/setup-node@v7
         with:
           node-version: 22
           cache: npm
@@ -79,7 +79,7 @@ jobs:
           python3 -c "import json,sys; r=json.load(open('registry/registry.json')); \
             json.dump(next(t for t in r['tools'] if t['id']=='$TOOL_ID'), open('out/entry-$(uname -m).json','w'))"
 
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: ${{ github.ref_name }}-${{ matrix.runner }}
           path: out/*
@@ -94,11 +94,11 @@ jobs:
       group: registry
       cancel-in-progress: false
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v7
         with:
           fetch-depth: 0
 
-      - uses: actions/download-artifact@v4
+      - uses: actions/download-artifact@v8
         with:
           path: out
           merge-multiple: true
