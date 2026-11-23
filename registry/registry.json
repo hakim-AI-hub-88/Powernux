@@ -436,11 +436,17 @@
       "minPowernuxVersion": "0.6.0",
       "version": "1.0.0",
       "packages": {
+        "linux-aarch64": {
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/focus-mode-v1.0.0/focus-mode-1.0.0-linux-aarch64.tar.gz",
+          "sha256": "d2d9683be891320cdaafe79fc74c72e5e9aa182a5e209a299d818513d055df9c",
+          "size": 230620,
+          "signature": "mSNhWmnI7Ma2tPtthOssoskY0Aw1yptd5BgKrnrAneFCGmIU52FpXoP3xAmQVlhy6jjvCqRxOYjYwv+4mTS1Bw=="
+        },
         "linux-x86_64": {
-          "url": "packages/focus-mode-1.0.0-linux-x86_64.tar.gz",
-          "sha256": "17be07be9df777e0a3daa22d127d7cb348b6593fea1b5a02e651ef92022256d9",
-          "size": 245170,
-          "signature": "esp+ZmeZ51dHbCF/U0xQvH1lvNgQSYb86iMngit+T3Qcpf2aAFcV93C7DAqW5rOsJkpSPGrgs7vNtLEUmpHoBA=="
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/focus-mode-v1.0.0/focus-mode-1.0.0-linux-x86_64.tar.gz",
+          "sha256": "2264c4ccc375c61a7461148946326a2c83a4291b9b6dafc3136fcf9655d82833",
+          "size": 244808,
+          "signature": "HwoDwALHcQowJ3e3U/+BVUp2PD+PWHzBCHmDdC3fp6ykHqmF5caQAJSYYFEJM/VwKNlYS+ZX9UhXbl22lEPNDA=="
         }
       },
       "i18n": {
