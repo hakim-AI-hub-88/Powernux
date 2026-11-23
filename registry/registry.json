@@ -580,11 +580,17 @@
       "minPowernuxVersion": "0.6.0",
       "version": "1.0.0",
       "packages": {
+        "linux-aarch64": {
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/projects-v1.0.0/projects-1.0.0-linux-aarch64.tar.gz",
+          "sha256": "909d3abc8957141f9a35a222d611b4e842eab167a4fdd9b12558f7543ad8ee29",
+          "size": 212453,
+          "signature": "vcqDbI7Dk7On3AfYjit+Zju7lgDKt3MC7iy24PYWfTiPBFznQJ4EApyJElzLr+WxLsr8Ew9pEWGMylm6LhB+AQ=="
+        },
         "linux-x86_64": {
-          "url": "packages/projects-1.0.0-linux-x86_64.tar.gz",
-          "sha256": "6244917bb9bfdb4fed62e45c586bf0957e27edd1be9132824dcc3e2e87ddb197",
-          "size": 226290,
-          "signature": "/dBUE70bOMHGn1jZDh5Ujr+9oqe5ZBFypN3NRJSN67wqYMhZ91do9Nno3L/Ym29S86W8X75WQtwNM18kTWfsDA=="
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/projects-v1.0.0/projects-1.0.0-linux-x86_64.tar.gz",
+          "sha256": "a2c136ef348e030e9b9fa21b74263424f47077edda2121f123ac7b34e0445a4d",
+          "size": 226110,
+          "signature": "XIWwJ1WjfCSMFXwaJOQvVEem6NRmW3BTOqklfOZEZSX2qTkK8QgE3hn0embKQ9ztL86F+ILfHQiv8KVlWEQLCQ=="
         }
       },
       "i18n": {
