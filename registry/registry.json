@@ -106,11 +106,17 @@
       "minPowernuxVersion": "0.9.0",
       "version": "2.1.0",
       "packages": {
+        "linux-aarch64": {
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/window-pin-v2.1.0/window-pin-2.1.0-linux-aarch64.tar.gz",
+          "sha256": "82c4be9c570bd77c1e1890e9dd36ead985cc7a178a0c51428024c2934ca12344",
+          "size": 238228,
+          "signature": "4OpBHk16p2IcQT3H08wOJBt2Ov7ojlLs+M1F+SyWrz+Y4c4uKcrWkV52q9ozqykc6K2kEk+Bee2OypRXM8V1DQ=="
+        },
         "linux-x86_64": {
-          "url": "packages/window-pin-2.1.0-linux-x86_64.tar.gz",
-          "sha256": "c158673aa082ee7c0f03900147ebc530b433380bbc9a4195a36af3dd5d723637",
-          "size": 254740,
-          "signature": "EPpmOpBQN19xOaGc6pxga5tuz2vpmw65SiQY44PFzLb3Eg5AU2CqJHSKXoqAgW/7+u//bhV+Ubhzw1D/jqneDA=="
+          "url": "https://github.com/hakim-AI-hub-88/Powernux/releases/download/window-pin-v2.1.0/window-pin-2.1.0-linux-x86_64.tar.gz",
+          "sha256": "365e01031a8c80789f1aa98577cdcdc3f6a0f7c597fa3269fc86b972b8e1f6de",
+          "size": 254483,
+          "signature": "LlgNldbDTLI6aI0nm0lMQF+FasDa1d78aeYA5t38aXkm5eCsnMgLmx1OvQhYqBqGmbZWmneuh0FX3lLe9s/7Bg=="
         }
       },
       "i18n": {
