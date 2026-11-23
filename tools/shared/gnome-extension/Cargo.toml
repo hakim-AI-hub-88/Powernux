@@ -1,0 +1,13 @@
+[package]
+name = "powernux-gnome-extension"
+version = "1.0.0"
+description = "Code partagé des modules Powernux qui s'appuient sur une extension GNOME Shell"
+edition = "2024"
+
+[dependencies]
+serde_json = "1"
+keyring = { version = "3", features = ["async-secret-service", "tokio", "crypto-rust"], optional = true }
+
+[features]
+# Lecture des clés API dans le trousseau GNOME (outils qui en ont besoin).
+secrets = ["dep:keyring"]

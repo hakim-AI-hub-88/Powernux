@@ -1,0 +1,132 @@
+{
+  "id": "projects",
+  "name": "Project Dashboard",
+  "version": "1.0.0",
+  "description": "Tableau de bord de vos projets : technologies détectées, dernière modification, et ouverture en un clic dans VS Code, le terminal ou lancement du projet.",
+  "category": "Développement",
+  "icon": "folder-tree",
+  "author": "Es-somid Abdelhakim",
+  "entry": "powernux-projects",
+  "minPowernuxVersion": "0.6.0",
+  "settings": [
+    {
+      "key": "roots",
+      "type": "text",
+      "label": "Dossiers de projets",
+      "description": "Dossiers analysés (séparés par des virgules). Les projets sont détectés jusqu'à 2 niveaux de profondeur.",
+      "default": "~/Documents/Projet, ~/Projets, ~/Projects, ~/dev, ~/code"
+    },
+    {
+      "key": "editor",
+      "type": "select",
+      "label": "Éditeur",
+      "default": "code",
+      "options": [
+        {
+          "value": "code",
+          "label": "Visual Studio Code"
+        },
+        {
+          "value": "xdg-open",
+          "label": "Application par défaut"
+        }
+      ]
+    }
+  ],
+  "shortcuts": [],
+  "actions": [],
+  "collections": [
+    {
+      "id": "projects",
+      "label": "Mes projets",
+      "description": "Triés par dernière modification.",
+      "empty": "Aucun projet trouvé : vérifiez les « Dossiers de projets » ou ajoutez un projet ci-dessous.",
+      "list": [
+        "--projects-json"
+      ],
+      "create": {
+        "label": "Ajouter un projet",
+        "placeholder": "Chemin du dossier (ex. ~/Documents/MonProjet)",
+        "args": [
+          "--add-project",
+          "{value}"
+        ]
+      },
+      "itemActions": [
+        {
+          "id": "run",
+          "label": "Lancer",
+          "icon": "play",
+          "args": [
+            "--run",
+            "{id}"
+          ],
+          "primary": true
+        },
+        {
+          "id": "code",
+          "label": "VS Code",
+          "icon": "code",
+          "args": [
+            "--open-code",
+            "{id}"
+          ]
+        },
+        {
+          "id": "terminal",
+          "label": "Terminal",
+          "icon": "terminal",
+          "args": [
+            "--open-terminal",
+            "{id}"
+          ]
+        },
+        {
+          "id": "folder",
+          "label": "Dossier",
+          "icon": "folder-open",
+          "args": [
+            "--open-folder",
+            "{id}"
+          ]
+        }
+      ]
+    }
+  ],
+  "i18n": {
+    "en": {
+      "name": "Project Dashboard",
+      "description": "Dashboard of your projects: detected technologies, last change, and one-click opening in VS Code, the terminal, or running the project.",
+      "settings": {
+        "roots": {
+          "label": "Project folders",
+          "description": "Folders to scan (comma-separated). Projects are detected up to 2 levels deep."
+        },
+        "editor": {
+          "label": "Editor",
+          "options": {
+            "code": "Visual Studio Code",
+            "xdg-open": "Default application"
+          }
+        }
+      },
+      "collections": {
+        "projects": {
+          "label": "My projects",
+          "description": "Sorted by last change.",
+          "empty": "No project found: check “Project folders” or add a project below.",
+          "create": {
+            "label": "Add a project",
+            "placeholder": "Folder path (e.g. ~/Documents/MyProject)"
+          },
+          "itemActions": {
+            "run": "Run",
+            "code": "VS Code",
+            "terminal": "Terminal",
+            "folder": "Folder"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,51 @@
+{
+  "id": "screenshot",
+  "name": "Screenshot",
+  "version": "1.0.0",
+  "description": "Capture d'écran avec Win + Shift + S, comme sous Windows : zone, fenêtre ou écran entier, copiée automatiquement dans le presse-papiers.",
+  "category": "Capture",
+  "icon": "camera",
+  "author": "Es-somid Abdelhakim",
+  "entry": "powernux-screenshot",
+  "minPowernuxVersion": "0.6.0",
+  "settings": [
+    {
+      "key": "shortcut",
+      "type": "shortcut",
+      "label": "Raccourci de capture",
+      "description": "Ouvre l'outil de capture : sélectionnez une zone, une fenêtre ou l'écran entier.",
+      "default": "<Super><Shift>s"
+    }
+  ],
+  "shortcuts": [],
+  "actions": [
+    {
+      "id": "folder",
+      "label": "Ouvrir le dossier des captures",
+      "icon": "folder-open",
+      "args": [
+        "--open-folder"
+      ]
+    }
+  ],
+  "hooks": {
+    "uninstall": [
+      "--quit"
+    ]
+  },
+  "i18n": {
+    "en": {
+      "name": "Screenshot",
+      "description": "Take a screenshot with Win + Shift + S: area, window or full screen, copied to the clipboard automatically.",
+      "settings": {
+        "shortcut": {
+          "label": "Screenshot shortcut",
+          "description": "Opens the capture tool: select an area, a window or the whole screen."
+        }
+      },
+      "actions": {
+        "folder": "Open screenshots folder"
+      }
+    }
+  }
+}

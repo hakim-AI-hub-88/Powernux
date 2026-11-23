@@ -1,0 +1,306 @@
+{
+  "id": "voice-typing",
+  "name": "Voice Typing",
+  "version": "1.3.0",
+  "description": "Dictée vocale : maintenez le raccourci, parlez, relâchez. Le texte est transcrit, copié et collé automatiquement.",
+  "category": "IA",
+  "icon": "microphone",
+  "author": "Es-somid Abdelhakim",
+  "entry": "powernux-voice-typing",
+  "minPowernuxVersion": "0.10.0",
+  "settings": [
+    {
+      "key": "shortcut",
+      "type": "shortcut",
+      "label": "Raccourci clavier",
+      "description": "Maintenez pour dicter, relâchez pour transcrire. Appui court : dictée mains libres (ré-appuyez pour terminer).",
+      "default": "<Super>e"
+    },
+    {
+      "key": "provider",
+      "type": "select",
+      "label": "Service de transcription",
+      "description": "Le son est envoyé à ce service pour être converti en texte.",
+      "default": "groq",
+      "options": [
+        {
+          "value": "groq",
+          "label": "Groq — Whisper large v3 turbo (rapide)"
+        },
+        {
+          "value": "openai",
+          "label": "OpenAI — gpt-4o-mini-transcribe"
+        },
+        {
+          "value": "assemblyai",
+          "label": "AssemblyAI — Universal"
+        },
+        {
+          "value": "custom",
+          "label": "Fournisseur personnalisé (développeur)",
+          "advanced": true
+        }
+      ]
+    },
+    {
+      "key": "apiKey",
+      "type": "secret",
+      "label": "Clé API Groq",
+      "description": "À créer sur console.groq.com. Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "showIf": {
+        "key": "provider",
+        "value": "groq"
+      }
+    },
+    {
+      "key": "openaiApiKey",
+      "type": "secret",
+      "label": "Clé API OpenAI",
+      "description": "À créer sur platform.openai.com. Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "showIf": {
+        "key": "provider",
+        "value": "openai"
+      }
+    },
+    {
+      "key": "assemblyaiApiKey",
+      "type": "secret",
+      "label": "Clé API AssemblyAI",
+      "description": "À créer sur assemblyai.com (tableau de bord → API Keys). Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "showIf": {
+        "key": "provider",
+        "value": "assemblyai"
+      }
+    },
+    {
+      "key": "customFormat",
+      "type": "select",
+      "label": "Format de l'API",
+      "description": "Comment envoyer l'audio au fournisseur.",
+      "default": "openai",
+      "advanced": true,
+      "showIf": {
+        "key": "provider",
+        "value": "custom"
+      },
+      "options": [
+        {
+          "value": "openai",
+          "label": "Compatible OpenAI (POST multipart /audio/transcriptions)"
+        },
+        {
+          "value": "assemblyai",
+          "label": "Compatible AssemblyAI (upload + transcript)"
+        }
+      ]
+    },
+    {
+      "key": "customUrl",
+      "type": "text",
+      "label": "Adresse de l'API",
+      "description": "Format OpenAI : URL complète, ex. https://api.exemple.com/v1/audio/transcriptions. Format AssemblyAI : URL de base, ex. https://api.assemblyai.com.",
+      "default": "",
+      "advanced": true,
+      "showIf": {
+        "key": "provider",
+        "value": "custom"
+      }
+    },
+    {
+      "key": "customModel",
+      "type": "text",
+      "label": "Modèle",
+      "description": "Nom du modèle (ex. whisper-1, whisper-large-v3). Vide : valeur par défaut du fournisseur.",
+      "default": "",
+      "advanced": true,
+      "showIf": {
+        "key": "provider",
+        "value": "custom"
+      }
+    },
+    {
+      "key": "customApiKey",
+      "type": "secret",
+      "label": "Clé API",
+      "description": "Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "advanced": true,
+      "showIf": {
+        "key": "provider",
+        "value": "custom"
+      }
+    },
+    {
+      "key": "customAuth",
+      "type": "select",
+      "label": "Envoi de la clé",
+      "default": "bearer",
+      "advanced": true,
+      "showIf": {
+        "key": "provider",
+        "value": "custom"
+      },
+      "options": [
+        {
+          "value": "bearer",
+          "label": "Authorization: Bearer <clé>"
+        },
+        {
+          "value": "raw",
+          "label": "Authorization: <clé>"
+        },
+        {
+          "value": "x-api-key",
+          "label": "x-api-key: <clé>"
+        },
+        {
+          "value": "none",
+          "label": "Aucune (serveur local)"
+        }
+      ]
+    },
+    {
+      "key": "language",
+      "type": "select",
+      "label": "Langue",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Détection automatique"
+        },
+        {
+          "value": "fr",
+          "label": "Français"
+        },
+        {
+          "value": "en",
+          "label": "Anglais"
+        },
+        {
+          "value": "ar",
+          "label": "Arabe"
+        },
+        {
+          "value": "es",
+          "label": "Espagnol"
+        }
+      ]
+    },
+    {
+      "key": "autoPaste",
+      "type": "toggle",
+      "label": "Coller automatiquement",
+      "description": "Colle le texte dans l'application active dès la fin de la transcription (il reste aussi dans le presse-papiers).",
+      "default": true
+    },
+    {
+      "key": "pasteKeys",
+      "type": "select",
+      "label": "Touches de collage",
+      "description": "Ctrl + Shift + V pour les terminaux.",
+      "default": "ctrl-v",
+      "options": [
+        {
+          "value": "ctrl-v",
+          "label": "Ctrl + V"
+        },
+        {
+          "value": "ctrl-shift-v",
+          "label": "Ctrl + Shift + V"
+        }
+      ]
+    }
+  ],
+  "shortcuts": [],
+  "actions": [],
+  "hooks": {
+    "uninstall": [
+      "--uninstall"
+    ]
+  },
+  "i18n": {
+    "en": {
+      "name": "Voice Typing",
+      "description": "Voice typing: hold the shortcut, speak, release. The text is transcribed, copied and pasted automatically.",
+      "settings": {
+        "shortcut": {
+          "label": "Keyboard shortcut",
+          "description": "Hold to dictate, release to transcribe. Short press: hands-free dictation (press again to finish)."
+        },
+        "provider": {
+          "label": "Transcription service",
+          "description": "The audio is sent to this service to be converted to text.",
+          "options": {
+            "groq": "Groq — Whisper large v3 turbo (fast)",
+            "openai": "OpenAI — gpt-4o-mini-transcribe",
+            "assemblyai": "AssemblyAI — Universal",
+            "custom": "Custom provider (developer)"
+          }
+        },
+        "apiKey": {
+          "label": "Groq API key",
+          "description": "Create it on console.groq.com. Stored only on this computer."
+        },
+        "language": {
+          "label": "Language",
+          "options": {
+            "auto": "Automatic detection",
+            "fr": "French",
+            "en": "English",
+            "ar": "Arabic",
+            "es": "Spanish"
+          }
+        },
+        "autoPaste": {
+          "label": "Paste automatically",
+          "description": "Pastes the text into the active application as soon as transcription ends (it also stays in the clipboard)."
+        },
+        "pasteKeys": {
+          "label": "Paste keys",
+          "description": "Ctrl + Shift + V for terminals."
+        },
+        "openaiApiKey": {
+          "label": "OpenAI API key",
+          "description": "Create it on platform.openai.com. Stored only on this computer."
+        },
+        "assemblyaiApiKey": {
+          "label": "AssemblyAI API key",
+          "description": "Create it on assemblyai.com (dashboard → API Keys). Stored only on this computer."
+        },
+        "customFormat": {
+          "label": "API format",
+          "description": "How the audio is sent to the provider.",
+          "options": {
+            "openai": "OpenAI-compatible (POST multipart /audio/transcriptions)",
+            "assemblyai": "AssemblyAI-compatible (upload + transcript)"
+          }
+        },
+        "customUrl": {
+          "label": "API address",
+          "description": "OpenAI format: full URL, e.g. https://api.example.com/v1/audio/transcriptions. AssemblyAI format: base URL, e.g. https://api.assemblyai.com."
+        },
+        "customModel": {
+          "label": "Model",
+          "description": "Model name (e.g. whisper-1, whisper-large-v3). Empty: provider default."
+        },
+        "customApiKey": {
+          "label": "API key",
+          "description": "Stored only on this computer."
+        },
+        "customAuth": {
+          "label": "How the key is sent",
+          "options": {
+            "bearer": "Authorization: Bearer <key>",
+            "raw": "Authorization: <key>",
+            "x-api-key": "x-api-key: <key>",
+            "none": "None (local server)"
+          }
+        }
+      }
+    }
+  }
+}

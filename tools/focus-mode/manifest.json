@@ -1,0 +1,292 @@
+{
+  "id": "focus-mode",
+  "name": "Focus Mode",
+  "version": "1.0.0",
+  "description": "Mode concentration : ouvre vos outils de travail, coupe les notifications, bloque les distractions et suit votre session (minuteur ou Pomodoro) dans un notch.",
+  "category": "Productivité",
+  "icon": "bullseye",
+  "author": "Es-somid Abdelhakim",
+  "entry": "powernux-focus-mode",
+  "minPowernuxVersion": "0.6.0",
+  "settings": [
+    {
+      "key": "pauseShortcut",
+      "type": "shortcut",
+      "label": "Pause / reprise",
+      "description": "Met en pause ou reprend la session en cours.",
+      "default": "<Super><Shift>f"
+    },
+    {
+      "key": "playSound",
+      "type": "toggle",
+      "label": "Son de fin de phase",
+      "description": "Un son discret à la fin de chaque phase (travail, pause).",
+      "default": true
+    },
+    {
+      "key": "notchStyle",
+      "type": "select",
+      "label": "Affichage du notch",
+      "description": "Survolez le notch pour afficher les commandes et le calendrier.",
+      "default": "compact",
+      "options": [
+        {
+          "value": "compact",
+          "label": "Compact (s'agrandit au survol)"
+        },
+        {
+          "value": "expanded",
+          "label": "Toujours agrandi"
+        }
+      ]
+    }
+  ],
+  "shortcuts": [
+    {
+      "setting": "pauseShortcut",
+      "name": "Focus Mode — pause",
+      "args": [
+        "--toggle-pause"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "stop",
+      "label": "Arrêter la session",
+      "icon": "stop",
+      "args": [
+        "--stop"
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "id": "modes",
+      "label": "Modes de concentration",
+      "description": "Chaque mode ouvre ses applications, coupe les notifications et masque les applications qui distraient pendant toute la session.",
+      "empty": "Aucun mode : créez-en un ci-dessous.",
+      "list": [
+        "--modes-json"
+      ],
+      "create": {
+        "label": "Créer le mode",
+        "args": [
+          "--create-mode",
+          "{json}"
+        ],
+        "fields": [
+          {
+            "key": "name",
+            "type": "text",
+            "label": "Nom",
+            "placeholder": "Ex. Étude IA",
+            "default": ""
+          },
+          {
+            "key": "apps",
+            "type": "apps",
+            "label": "Applications à ouvrir",
+            "description": "Ouvertes au début de la session.",
+            "default": []
+          },
+          {
+            "key": "pomodoro",
+            "type": "toggle",
+            "label": "Pomodoro",
+            "description": "Alterne travail et pauses (25 / 5 min, pause longue toutes les 4 sessions).",
+            "default": false
+          },
+          {
+            "key": "duration",
+            "type": "number",
+            "label": "Durée (minutes)",
+            "default": 90,
+            "min": 5,
+            "max": 600,
+            "showIf": {
+              "key": "pomodoro",
+              "value": false
+            }
+          },
+          {
+            "key": "work",
+            "type": "number",
+            "label": "Travail (min)",
+            "default": 25,
+            "min": 5,
+            "max": 120,
+            "showIf": {
+              "key": "pomodoro",
+              "value": true
+            }
+          },
+          {
+            "key": "shortBreak",
+            "type": "number",
+            "label": "Pause courte (min)",
+            "default": 5,
+            "min": 1,
+            "max": 30,
+            "showIf": {
+              "key": "pomodoro",
+              "value": true
+            }
+          },
+          {
+            "key": "longBreak",
+            "type": "number",
+            "label": "Pause longue (min)",
+            "default": 15,
+            "min": 5,
+            "max": 60,
+            "showIf": {
+              "key": "pomodoro",
+              "value": true
+            }
+          },
+          {
+            "key": "cycles",
+            "type": "number",
+            "label": "Nombre de sessions de travail",
+            "default": 4,
+            "min": 1,
+            "max": 12,
+            "showIf": {
+              "key": "pomodoro",
+              "value": true
+            }
+          },
+          {
+            "key": "dnd",
+            "type": "toggle",
+            "label": "Couper les notifications",
+            "description": "Mode « Ne pas déranger » pendant la session.",
+            "default": true
+          },
+          {
+            "key": "blockApps",
+            "type": "apps",
+            "label": "Applications à bloquer",
+            "description": "Leurs fenêtres sont réduites pendant le travail (autorisées pendant les pauses).",
+            "default": []
+          },
+          {
+            "key": "minimizeOthers",
+            "type": "toggle",
+            "label": "Réduire les autres fenêtres au démarrage",
+            "default": false
+          }
+        ]
+      },
+      "itemActions": [
+        {
+          "id": "start",
+          "label": "Démarrer",
+          "icon": "play",
+          "args": [
+            "--start-mode",
+            "{id}"
+          ],
+          "primary": true
+        },
+        {
+          "id": "delete",
+          "label": "Supprimer",
+          "icon": "trash-can",
+          "args": [
+            "--delete-mode",
+            "{id}"
+          ],
+          "confirm": "Supprimer ce mode ?"
+        }
+      ]
+    }
+  ],
+  "hooks": {
+    "uninstall": [
+      "--uninstall"
+    ]
+  },
+  "i18n": {
+    "en": {
+      "name": "Focus Mode",
+      "description": "Focus mode: opens your work tools, mutes notifications, blocks distractions and tracks your session (timer or Pomodoro) in a notch.",
+      "settings": {
+        "pauseShortcut": {
+          "label": "Pause / resume",
+          "description": "Pauses or resumes the current session."
+        },
+        "playSound": {
+          "label": "End-of-phase sound",
+          "description": "A subtle sound at the end of each phase (work, break)."
+        },
+        "notchStyle": {
+          "label": "Notch display",
+          "description": "Hover the notch to show controls and the calendar.",
+          "options": {
+            "compact": "Compact (expands on hover)",
+            "expanded": "Always expanded"
+          }
+        }
+      },
+      "actions": {
+        "stop": "Stop session"
+      },
+      "collections": {
+        "modes": {
+          "label": "Focus modes",
+          "description": "Each mode opens its applications, mutes notifications and hides distracting applications for the whole session.",
+          "empty": "No mode yet: create one below.",
+          "create": {
+            "label": "Create mode",
+            "fields": {
+              "name": {
+                "label": "Name",
+                "placeholder": "e.g. AI Study"
+              },
+              "apps": {
+                "label": "Applications to open",
+                "description": "Opened when the session starts."
+              },
+              "pomodoro": {
+                "label": "Pomodoro",
+                "description": "Alternates work and breaks (25 / 5 min, long break every 4 sessions)."
+              },
+              "duration": {
+                "label": "Duration (minutes)"
+              },
+              "work": {
+                "label": "Work (min)"
+              },
+              "shortBreak": {
+                "label": "Short break (min)"
+              },
+              "longBreak": {
+                "label": "Long break (min)"
+              },
+              "cycles": {
+                "label": "Number of work sessions"
+              },
+              "dnd": {
+                "label": "Mute notifications",
+                "description": "“Do not disturb” during the session."
+              },
+              "blockApps": {
+                "label": "Applications to block",
+                "description": "Their windows are minimized during work (allowed during breaks)."
+              },
+              "minimizeOthers": {
+                "label": "Minimize other windows at start"
+              }
+            }
+          },
+          "itemActions": {
+            "start": "Start",
+            "delete": "Delete"
+          }
+        }
+      }
+    }
+  }
+}

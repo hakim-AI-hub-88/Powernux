@@ -1,0 +1,136 @@
+{
+  "id": "file-organizer",
+  "name": "Smart File Organizer",
+  "version": "1.0.0",
+  "description": "Range automatiquement un dossier par type (Images, Documents, Code, Archives…) et détecte les fichiers en double pour libérer de l'espace.",
+  "category": "Fichiers",
+  "icon": "broom",
+  "author": "Es-somid Abdelhakim",
+  "entry": "powernux-file-organizer",
+  "minPowernuxVersion": "0.6.0",
+  "settings": [
+    {
+      "key": "folder",
+      "type": "text",
+      "label": "Dossier à analyser",
+      "description": "Par exemple ~/Téléchargements ou ~/Downloads.",
+      "default": "~/Downloads"
+    },
+    {
+      "key": "includeSubfolders",
+      "type": "toggle",
+      "label": "Chercher les doublons dans les sous-dossiers",
+      "default": true
+    }
+  ],
+  "shortcuts": [],
+  "actions": [
+    {
+      "id": "organize-all",
+      "label": "Tout ranger",
+      "icon": "wand-magic-sparkles",
+      "args": [
+        "--organize-all"
+      ]
+    },
+    {
+      "id": "undo",
+      "label": "Annuler le dernier rangement",
+      "icon": "rotate-left",
+      "args": [
+        "--undo"
+      ]
+    },
+    {
+      "id": "clean-all",
+      "label": "Mettre tous les doublons à la corbeille",
+      "icon": "trash-can",
+      "args": [
+        "--clean-all"
+      ],
+      "confirm": "Mettre toutes les copies à la corbeille ?"
+    }
+  ],
+  "collections": [
+    {
+      "id": "organize",
+      "label": "Organisation proposée",
+      "description": "Les fichiers du dossier sont classés selon leur type. Rien n'est déplacé sans votre accord.",
+      "empty": "Ce dossier est déjà bien rangé.",
+      "list": [
+        "--organize-plan"
+      ],
+      "itemActions": [
+        {
+          "id": "move",
+          "label": "Déplacer",
+          "icon": "folder-open",
+          "args": [
+            "--organize",
+            "{id}"
+          ],
+          "primary": true
+        }
+      ]
+    },
+    {
+      "id": "duplicates",
+      "label": "Fichiers en double",
+      "description": "Fichiers au contenu strictement identique (comparaison octet par octet via SHA-256). L'original est conservé, les copies vont à la corbeille.",
+      "empty": "Aucun doublon trouvé.",
+      "list": [
+        "--duplicates-json"
+      ],
+      "itemActions": [
+        {
+          "id": "clean",
+          "label": "Supprimer les copies",
+          "icon": "trash-can",
+          "args": [
+            "--clean",
+            "{id}"
+          ],
+          "confirm": "Mettre les copies à la corbeille ?"
+        }
+      ]
+    }
+  ],
+  "i18n": {
+    "en": {
+      "name": "Smart File Organizer",
+      "description": "Automatically sorts a folder by type (Images, Documents, Code, Archives…) and finds duplicate files to free up space.",
+      "settings": {
+        "folder": {
+          "label": "Folder to analyze",
+          "description": "For example ~/Downloads."
+        },
+        "includeSubfolders": {
+          "label": "Look for duplicates in subfolders"
+        }
+      },
+      "actions": {
+        "organize-all": "Sort everything",
+        "undo": "Undo last sort",
+        "clean-all": "Move all duplicates to trash"
+      },
+      "collections": {
+        "organize": {
+          "label": "Suggested organization",
+          "description": "Files in the folder are grouped by type. Nothing is moved without your approval.",
+          "empty": "This folder is already tidy.",
+          "itemActions": {
+            "move": "Move"
+          }
+        },
+        "duplicates": {
+          "label": "Duplicate files",
+          "description": "Files with exactly the same content (compared byte by byte with SHA-256). The original is kept, copies go to the trash.",
+          "empty": "No duplicates found.",
+          "itemActions": {
+            "clean": "Delete copies"
+          }
+        }
+      }
+    }
+  }
+}

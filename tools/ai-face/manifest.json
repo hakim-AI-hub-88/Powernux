@@ -1,0 +1,346 @@
+{
+  "id": "ai-face",
+  "name": "AI Face Assistant",
+  "version": "1.2.0",
+  "description": "Un visage IA animé apparaît dans un notch pour expliquer vos erreurs (Docker, services, terminal) et proposer la correction. Fonctionne avec Groq, OpenAI, Gemini, Mistral, OpenRouter ou Ollama en local.",
+  "category": "IA",
+  "icon": "face-smile",
+  "author": "Es-somid Abdelhakim",
+  "entry": "powernux-ai-face",
+  "minPowernuxVersion": "0.10.0",
+  "settings": [
+    {
+      "key": "provider",
+      "type": "select",
+      "label": "Fournisseur d'IA",
+      "description": "Le texte analysé est envoyé à ce service. Ollama fonctionne en local, sans clé et sans envoyer de données.",
+      "default": "groq",
+      "options": [
+        {
+          "value": "groq",
+          "label": "Groq — Llama 3.3 70B (gratuit, rapide)"
+        },
+        {
+          "value": "openai",
+          "label": "OpenAI — GPT-4o mini"
+        },
+        {
+          "value": "gemini",
+          "label": "Google Gemini — 2.5 Flash"
+        },
+        {
+          "value": "mistral",
+          "label": "Mistral — Mistral Small"
+        },
+        {
+          "value": "openrouter",
+          "label": "OpenRouter — centaines de modèles"
+        },
+        {
+          "value": "ollama",
+          "label": "Ollama — local, sans clé"
+        },
+        {
+          "value": "custom",
+          "label": "Fournisseur personnalisé (développeur)",
+          "advanced": true
+        }
+      ]
+    },
+    {
+      "key": "groqApiKey",
+      "type": "secret",
+      "label": "Clé API Groq",
+      "description": "À créer sur console.groq.com. Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "showIf": {
+        "key": "provider",
+        "value": "groq"
+      }
+    },
+    {
+      "key": "openaiApiKey",
+      "type": "secret",
+      "label": "Clé API OpenAI",
+      "description": "À créer sur platform.openai.com. Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "showIf": {
+        "key": "provider",
+        "value": "openai"
+      }
+    },
+    {
+      "key": "geminiApiKey",
+      "type": "secret",
+      "label": "Clé API Google Gemini",
+      "description": "À créer sur aistudio.google.com (Get API key). Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "showIf": {
+        "key": "provider",
+        "value": "gemini"
+      }
+    },
+    {
+      "key": "mistralApiKey",
+      "type": "secret",
+      "label": "Clé API Mistral",
+      "description": "À créer sur console.mistral.ai. Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "showIf": {
+        "key": "provider",
+        "value": "mistral"
+      }
+    },
+    {
+      "key": "openrouterApiKey",
+      "type": "secret",
+      "label": "Clé API OpenRouter",
+      "description": "À créer sur openrouter.ai/keys. Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "showIf": {
+        "key": "provider",
+        "value": "openrouter"
+      }
+    },
+    {
+      "key": "ollamaModel",
+      "type": "text",
+      "label": "Modèle Ollama",
+      "description": "Modèle installé avec « ollama pull », ex. llama3.2, qwen2.5, mistral.",
+      "default": "llama3.2",
+      "showIf": {
+        "key": "provider",
+        "value": "ollama"
+      }
+    },
+    {
+      "key": "model",
+      "type": "text",
+      "label": "Modèle (remplace celui par défaut)",
+      "description": "Nom exact du modèle chez le fournisseur choisi. Vide : modèle par défaut.",
+      "default": "",
+      "advanced": true
+    },
+    {
+      "key": "customUrl",
+      "type": "text",
+      "label": "Adresse de l'API",
+      "description": "API compatible OpenAI « chat completions », ex. https://api.exemple.com/v1/chat/completions.",
+      "default": "",
+      "advanced": true,
+      "showIf": {
+        "key": "provider",
+        "value": "custom"
+      }
+    },
+    {
+      "key": "customModel",
+      "type": "text",
+      "label": "Modèle",
+      "default": "",
+      "advanced": true,
+      "showIf": {
+        "key": "provider",
+        "value": "custom"
+      }
+    },
+    {
+      "key": "customApiKey",
+      "type": "secret",
+      "label": "Clé API",
+      "description": "Stockée uniquement sur cet ordinateur.",
+      "default": "",
+      "advanced": true,
+      "showIf": {
+        "key": "provider",
+        "value": "custom"
+      }
+    },
+    {
+      "key": "customAuth",
+      "type": "select",
+      "label": "Envoi de la clé",
+      "default": "bearer",
+      "advanced": true,
+      "showIf": {
+        "key": "provider",
+        "value": "custom"
+      },
+      "options": [
+        {
+          "value": "bearer",
+          "label": "Authorization: Bearer <clé>"
+        },
+        {
+          "value": "raw",
+          "label": "Authorization: <clé>"
+        },
+        {
+          "value": "x-api-key",
+          "label": "x-api-key: <clé>"
+        },
+        {
+          "value": "none",
+          "label": "Aucune (serveur local)"
+        }
+      ]
+    },
+    {
+      "key": "shortcut",
+      "type": "shortcut",
+      "label": "Analyser la sélection",
+      "description": "Sélectionnez une erreur (terminal, navigateur…) puis appuyez sur le raccourci.",
+      "default": "<Super><Shift>a"
+    },
+    {
+      "key": "watchErrors",
+      "type": "toggle",
+      "label": "Surveiller les erreurs automatiquement",
+      "description": "Désactivé par défaut. Si vous l'activez, Powernux lit le journal système et, quand un service surveillé échoue, envoie les lignes d'erreur au fournisseur d'IA choisi pour les expliquer. Avec Ollama, rien ne quitte votre ordinateur.",
+      "default": false
+    },
+    {
+      "key": "watchList",
+      "type": "text",
+      "label": "Services surveillés",
+      "description": "Noms séparés par des virgules (identifiants du journal ou unités systemd).",
+      "default": "docker, dockerd, containerd, nginx, apache2, postgresql, postgres, mysqld, mariadb, redis, ssh, sshd"
+    },
+    {
+      "key": "showSeconds",
+      "type": "select",
+      "label": "Durée d'affichage",
+      "default": 12,
+      "options": [
+        {
+          "value": 8,
+          "label": "Courte (8 s)"
+        },
+        {
+          "value": 12,
+          "label": "Normale (12 s)"
+        },
+        {
+          "value": 30,
+          "label": "Longue (30 s)"
+        }
+      ]
+    }
+  ],
+  "shortcuts": [
+    {
+      "setting": "shortcut",
+      "name": "AI Face — analyser",
+      "args": [
+        "--analyze"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "demo",
+      "label": "Essayer avec une erreur Docker d'exemple",
+      "icon": "play",
+      "args": [
+        "--demo"
+      ]
+    }
+  ],
+  "hooks": {
+    "uninstall": [
+      "--uninstall"
+    ]
+  },
+  "i18n": {
+    "en": {
+      "name": "AI Face Assistant",
+      "description": "An animated AI face appears in a notch to explain your errors (Docker, services, terminal) and suggest a fix. Works with Groq, OpenAI, Gemini, Mistral, OpenRouter or local Ollama.",
+      "settings": {
+        "shortcut": {
+          "label": "Analyze selection",
+          "description": "Select an error (terminal, browser…) then press the shortcut."
+        },
+        "watchErrors": {
+          "label": "Watch for errors automatically",
+          "description": "Off by default. If you turn it on, Powernux reads the system journal and, when a watched service fails, sends the error lines to the selected AI provider to explain them. With Ollama, nothing leaves your computer."
+        },
+        "watchList": {
+          "label": "Watched services",
+          "description": "Comma-separated names (journal identifiers or systemd units)."
+        },
+        "showSeconds": {
+          "label": "Display time",
+          "options": {
+            "8": "Short (8 s)",
+            "12": "Normal (12 s)",
+            "30": "Long (30 s)"
+          }
+        },
+        "provider": {
+          "label": "AI provider",
+          "description": "The analyzed text is sent to this service. Ollama runs locally, with no key and no data sent.",
+          "options": {
+            "groq": "Groq — Llama 3.3 70B (free, fast)",
+            "openai": "OpenAI — GPT-4o mini",
+            "gemini": "Google Gemini — 2.5 Flash",
+            "mistral": "Mistral — Mistral Small",
+            "openrouter": "OpenRouter — hundreds of models",
+            "ollama": "Ollama — local, no key",
+            "custom": "Custom provider (developer)"
+          }
+        },
+        "groqApiKey": {
+          "label": "Groq API key",
+          "description": "Create it on console.groq.com. Stored only on this computer."
+        },
+        "openaiApiKey": {
+          "label": "OpenAI API key",
+          "description": "Create it on platform.openai.com. Stored only on this computer."
+        },
+        "geminiApiKey": {
+          "label": "Google Gemini API key",
+          "description": "Create it on aistudio.google.com (Get API key). Stored only on this computer."
+        },
+        "mistralApiKey": {
+          "label": "Mistral API key",
+          "description": "Create it on console.mistral.ai. Stored only on this computer."
+        },
+        "openrouterApiKey": {
+          "label": "OpenRouter API key",
+          "description": "Create it on openrouter.ai/keys. Stored only on this computer."
+        },
+        "ollamaModel": {
+          "label": "Ollama model",
+          "description": "Model installed with “ollama pull”, e.g. llama3.2, qwen2.5, mistral."
+        },
+        "model": {
+          "label": "Model (overrides the default)",
+          "description": "Exact model name at the selected provider. Empty: default model."
+        },
+        "customUrl": {
+          "label": "API address",
+          "description": "OpenAI-compatible “chat completions” API, e.g. https://api.example.com/v1/chat/completions."
+        },
+        "customModel": {
+          "label": "Model"
+        },
+        "customApiKey": {
+          "label": "API key",
+          "description": "Stored only on this computer."
+        },
+        "customAuth": {
+          "label": "How the key is sent",
+          "options": {
+            "bearer": "Authorization: Bearer <key>",
+            "raw": "Authorization: <key>",
+            "x-api-key": "x-api-key: <key>",
+            "none": "None (local server)"
+          }
+        }
+      },
+      "actions": {
+        "demo": "Try with a sample Docker error"
+      }
+    }
+  }
+}

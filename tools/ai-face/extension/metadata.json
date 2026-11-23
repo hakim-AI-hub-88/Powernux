@@ -1,0 +1,7 @@
+{
+  "uuid": "powernux-ai-face@powernux",
+  "name": "Powernux AI Face",
+  "description": "Module AI Face Assistant de Powernux : un visage IA animé dans un notch qui explique les erreurs.",
+  "shell-version": ["45", "46", "47", "48", "49", "50"],
+  "url": "https://github.com/"
+}

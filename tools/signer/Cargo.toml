@@ -1,0 +1,10 @@
+[package]
+name = "powernux-sign"
+version = "1.0.0"
+description = "Signature des archives d'outils Powernux (Ed25519)"
+edition = "2024"
+publish = false
+
+[dependencies]
+ed25519-dalek = "2"
+base64 = "0.22"

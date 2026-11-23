@@ -1,0 +1,14 @@
+[package]
+name = "powernux-projects"
+version = "1.0.0"
+description = "Powernux — module Project Dashboard"
+authors = ["Es-somid Abdelhakim"]
+edition = "2024"
+
+[dependencies]
+serde_json = "1"
+
+[profile.release]
+lto = true
+opt-level = "s"
+strip = true

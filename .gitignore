@@ -1,0 +1,38 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+node_modules
+dist
+dist-ssr
+*.local
+
+# Editor directories and files
+.vscode/*
+!.vscode/extensions.json
+.idea
+.DS_Store
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Powernux : artefacts de build des modules
+target/
+**/target/
+tools/*/dist
+tools/*/src-tauri/target
+tools/*/src-tauri/gen
+registry/packages
+tools/*/target
+tools/notes/dist
+
+# Clés : la clé privée de signature ne doit jamais être dans le dépôt
+*.key
+tools/signer/target

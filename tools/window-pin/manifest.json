@@ -1,0 +1,342 @@
+{
+  "id": "window-pin",
+  "name": "Smart Window Manager",
+  "version": "2.1.0",
+  "description": "Gestion intelligente des fenêtres : Always On Top, organisation automatique et espaces de travail restaurés en un clic.",
+  "category": "Fenêtres",
+  "icon": "window-restore",
+  "author": "Es-somid Abdelhakim",
+  "entry": "powernux-window-pin",
+  "minPowernuxVersion": "0.9.0",
+  "settings": [
+    {
+      "key": "shortcut",
+      "type": "shortcut",
+      "label": "Always On Top",
+      "description": "Épingle la fenêtre active au premier plan. Le même raccourci la désépingle.",
+      "default": "<Super><Shift>t"
+    },
+    {
+      "key": "arrangeShortcut",
+      "type": "shortcut",
+      "label": "Organiser les fenêtres",
+      "description": "Range automatiquement les fenêtres du bureau courant.",
+      "default": "<Super><Shift>o"
+    },
+    {
+      "key": "arrangeMode",
+      "type": "select",
+      "label": "Disposition automatique",
+      "default": "auto",
+      "options": [
+        {
+          "value": "auto",
+          "label": "Automatique (grille)"
+        },
+        {
+          "value": "master",
+          "label": "Fenêtre principale 70 % + les autres à droite"
+        },
+        {
+          "value": "columns",
+          "label": "Colonnes"
+        }
+      ]
+    },
+    {
+      "key": "gap",
+      "type": "select",
+      "label": "Espace entre les fenêtres",
+      "default": 8,
+      "options": [
+        {
+          "value": 0,
+          "label": "Aucun"
+        },
+        {
+          "value": 8,
+          "label": "Petit (8 px)"
+        },
+        {
+          "value": 16,
+          "label": "Grand (16 px)"
+        }
+      ]
+    },
+    {
+      "key": "showBorder",
+      "type": "toggle",
+      "label": "Bordure des fenêtres épinglées",
+      "description": "Une bordure colorée et une punaise indiquent les fenêtres toujours au premier plan.",
+      "default": true
+    },
+    {
+      "key": "borderColor",
+      "type": "select",
+      "label": "Couleur de la bordure",
+      "default": "#00C2FF",
+      "options": [
+        {
+          "value": "#00C2FF",
+          "label": "Cyan"
+        },
+        {
+          "value": "#8B7CFF",
+          "label": "Violet"
+        },
+        {
+          "value": "#2EE6A6",
+          "label": "Vert"
+        },
+        {
+          "value": "#FFB547",
+          "label": "Orange"
+        },
+        {
+          "value": "#FF6B9A",
+          "label": "Rose"
+        }
+      ]
+    },
+    {
+      "key": "showIndicator",
+      "type": "toggle",
+      "label": "Menu dans la barre du haut",
+      "description": "Accès en un clic aux espaces de travail et à l'organisation des fenêtres.",
+      "default": true
+    }
+  ],
+  "shortcuts": [
+    {
+      "setting": "shortcut",
+      "name": "Always On Top",
+      "args": [
+        "--toggle"
+      ]
+    },
+    {
+      "setting": "arrangeShortcut",
+      "name": "Organiser les fenêtres",
+      "args": [
+        "--arrange"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "arrange",
+      "label": "Organiser les fenêtres",
+      "icon": "table-cells-large",
+      "args": [
+        "--arrange"
+      ]
+    },
+    {
+      "id": "unpin-all",
+      "label": "Désépingler toutes les fenêtres",
+      "icon": "thumbtack-slash",
+      "args": [
+        "--unpin-all"
+      ]
+    }
+  ],
+  "collections": [
+    {
+      "id": "layouts",
+      "label": "Espaces de travail",
+      "description": "Disposez vos fenêtres (ex. VS Code 70 %, Terminal 30 %, documentation flottante), enregistrez, puis retrouvez cet environnement en un clic ou avec son raccourci clavier : les applications fermées sont lancées, celles déjà ouvertes sont remises en place.",
+      "empty": "Aucun espace de travail enregistré.",
+      "list": [
+        "--layouts-json"
+      ],
+      "create": {
+        "label": "Enregistrer la disposition actuelle",
+        "args": [
+          "--save-layout",
+          "{json}"
+        ],
+        "fields": [
+          {
+            "key": "name",
+            "type": "text",
+            "label": "Nom de l'espace",
+            "placeholder": "Ex. Coding",
+            "default": ""
+          },
+          {
+            "key": "shortcut",
+            "type": "shortcut",
+            "label": "Raccourci clavier (optionnel)",
+            "description": "Ouvre ou réorganise cet espace depuis n'importe où, sans ouvrir Powernux.",
+            "default": "",
+            "options": [
+              {
+                "value": "<Super><Alt>1",
+                "label": "Win + Alt + 1"
+              },
+              {
+                "value": "<Super><Alt>2",
+                "label": "Win + Alt + 2"
+              },
+              {
+                "value": "<Super><Alt>3",
+                "label": "Win + Alt + 3"
+              },
+              {
+                "value": "<Super><Alt>4",
+                "label": "Win + Alt + 4"
+              }
+            ]
+          }
+        ]
+      },
+      "itemActions": [
+        {
+          "id": "restore",
+          "label": "Restaurer",
+          "icon": "play",
+          "args": [
+            "--restore-layout",
+            "{id}"
+          ],
+          "primary": true
+        },
+        {
+          "id": "shortcut",
+          "label": "Raccourci",
+          "icon": "keyboard",
+          "args": [
+            "--set-layout-shortcut",
+            "{id}",
+            "{value}"
+          ],
+          "field": {
+            "key": "shortcut",
+            "type": "shortcut",
+            "label": "Raccourci clavier",
+            "description": "Laissez vide pour retirer le raccourci.",
+            "default": "",
+            "options": [
+              {
+                "value": "<Super><Alt>1",
+                "label": "Win + Alt + 1"
+              },
+              {
+                "value": "<Super><Alt>2",
+                "label": "Win + Alt + 2"
+              },
+              {
+                "value": "<Super><Alt>3",
+                "label": "Win + Alt + 3"
+              },
+              {
+                "value": "<Super><Alt>4",
+                "label": "Win + Alt + 4"
+              }
+            ]
+          }
+        },
+        {
+          "id": "delete",
+          "label": "Supprimer",
+          "icon": "trash-can",
+          "args": [
+            "--delete-layout",
+            "{id}"
+          ],
+          "confirm": "Supprimer cet espace ?"
+        }
+      ]
+    }
+  ],
+  "hooks": {
+    "uninstall": [
+      "--uninstall"
+    ]
+  },
+  "i18n": {
+    "en": {
+      "name": "Smart Window Manager",
+      "description": "Smart window management: Always On Top, automatic arrangement and workspaces restored in one click.",
+      "settings": {
+        "shortcut": {
+          "label": "Always On Top",
+          "description": "Pins the active window on top. The same shortcut unpins it."
+        },
+        "arrangeShortcut": {
+          "label": "Arrange windows",
+          "description": "Automatically arranges the windows of the current workspace."
+        },
+        "arrangeMode": {
+          "label": "Automatic layout",
+          "options": {
+            "auto": "Automatic (grid)",
+            "master": "Main window 70% + others on the right",
+            "columns": "Columns"
+          }
+        },
+        "gap": {
+          "label": "Space between windows",
+          "options": {
+            "0": "None",
+            "8": "Small (8 px)",
+            "16": "Large (16 px)"
+          }
+        },
+        "showBorder": {
+          "label": "Border on pinned windows",
+          "description": "A colored border and a pin show windows that stay on top."
+        },
+        "borderColor": {
+          "label": "Border color",
+          "options": {
+            "#00C2FF": "Cyan",
+            "#8B7CFF": "Violet",
+            "#2EE6A6": "Green",
+            "#FFB547": "Orange",
+            "#FF6B9A": "Pink"
+          }
+        },
+        "showIndicator": {
+          "label": "Menu in the top bar",
+          "description": "One-click access to workspaces and window arrangement."
+        }
+      },
+      "actions": {
+        "arrange": "Arrange windows",
+        "unpin-all": "Unpin all windows"
+      },
+      "collections": {
+        "layouts": {
+          "label": "Workspaces",
+          "description": "Arrange your windows (e.g. VS Code 70%, Terminal 30%, floating docs), save, then get this environment back in one click or with its keyboard shortcut: closed applications are launched, open ones are put back in place.",
+          "empty": "No saved workspace.",
+          "create": {
+            "label": "Save current layout",
+            "fields": {
+              "name": {
+                "label": "Workspace name",
+                "placeholder": "e.g. Coding"
+              },
+              "shortcut": {
+                "label": "Keyboard shortcut (optional)",
+                "description": "Opens or rearranges this workspace from anywhere, without opening Powernux."
+              }
+            }
+          },
+          "itemActions": {
+            "restore": "Restore",
+            "shortcut": "Shortcut",
+            "delete": "Delete"
+          },
+          "itemFields": {
+            "shortcut": {
+              "label": "Keyboard shortcut",
+              "description": "Leave empty to remove the shortcut."
+            }
+          }
+        }
+      }
+    }
+  }
+}

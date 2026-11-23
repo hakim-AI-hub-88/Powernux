@@ -1,0 +1,100 @@
+/* Notch Powernux — panneau noir attaché au haut de l'écran (style « dynamic island »). */
+.pnx-notch {
+  background-gradient-direction: vertical;
+  background-gradient-start: #000000;
+  background-gradient-end: #17161d;
+  border-radius: 0 0 30px 30px;
+  padding: 14px 22px 16px 18px;
+  spacing: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Tuile à gauche (comme une pochette) */
+.pnx-tile {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  background-gradient-direction: diagonal;
+  background-gradient-start: #00c2ff;
+  background-gradient-end: #8b7cff;
+}
+.pnx-tile.processing {
+  background-gradient-start: #3a3850;
+  background-gradient-end: #26243a;
+}
+.pnx-tile.done {
+  background-gradient-start: #2ee6a6;
+  background-gradient-end: #00c2ff;
+}
+.pnx-tile.error {
+  background-gradient-start: #ff6b9a;
+  background-gradient-end: #ff8a4c;
+}
+.pnx-tile-icon {
+  icon-size: 26px;
+  color: #ffffff;
+}
+
+.pnx-column {
+  spacing: 4px;
+}
+.pnx-title-row {
+  spacing: 8px;
+}
+.pnx-title {
+  color: #ffffff;
+  font-size: 15px;
+  font-weight: 700;
+}
+.pnx-title.error {
+  color: #ff6b9a;
+}
+.pnx-badge {
+  color: #0d0b24;
+  background-color: #f4f6ff;
+  border-radius: 5px;
+  padding: 0 5px;
+  font-size: 10px;
+  font-weight: 800;
+}
+.pnx-rec {
+  color: #ff4f5e;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 1px;
+}
+.pnx-subtitle {
+  color: #a7a5b8;
+  font-size: 13px;
+}
+
+.pnx-waves {
+  spacing: 3px;
+  margin-top: 4px;
+}
+.pnx-bar {
+  width: 4px;
+  border-radius: 2px;
+}
+
+.pnx-progress-row {
+  spacing: 10px;
+  margin-top: 2px;
+}
+.pnx-time {
+  color: #a7a5b8;
+  font-size: 11px;
+  font-weight: 600;
+  font-feature-settings: "tnum";
+  min-width: 34px;
+}
+.pnx-track {
+  height: 5px;
+  border-radius: 3px;
+  background-color: rgba(255, 255, 255, 0.16);
+}
+.pnx-fill {
+  height: 5px;
+  border-radius: 3px;
+  background-color: #f4f6ff;
+}

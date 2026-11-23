@@ -1,0 +1,72 @@
+# Alertes et mises à jour automatiques des dépendances (GitHub Dependabot).
+version: 2
+updates:
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 5
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+  - package-ecosystem: cargo
+    directory: /src-tauri
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/clipboard/src-tauri
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/notes/src-tauri
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/window-pin
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/voice-typing
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/ai-face
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/focus-mode
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/screenshot
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/projects
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/file-organizer
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/shared/gnome-extension
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3
+  - package-ecosystem: cargo
+    directory: /tools/signer
+    schedule:
+      interval: weekly
+    open-pull-requests-limit: 3

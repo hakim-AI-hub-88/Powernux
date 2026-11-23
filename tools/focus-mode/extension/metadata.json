@@ -1,0 +1,7 @@
+{
+  "uuid": "powernux-focus-mode@powernux",
+  "name": "Powernux Focus Mode",
+  "description": "Module Focus Mode de Powernux : sessions de concentration et Pomodoro avec notch.",
+  "shell-version": ["45", "46", "47", "48", "49", "50"],
+  "url": "https://github.com/"
+}

@@ -1,0 +1,15 @@
+[package]
+name = "powernux-file-organizer"
+version = "1.0.0"
+description = "Powernux — module Smart File Organizer (rangement + doublons)"
+authors = ["Es-somid Abdelhakim"]
+edition = "2024"
+
+[dependencies]
+serde_json = "1"
+sha2 = "0.10"
+
+[profile.release]
+lto = true
+opt-level = 3
+strip = true

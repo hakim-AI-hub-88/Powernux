@@ -1,0 +1,63 @@
+/* Notch Focus Mode — suspendu sous la barre du haut. */
+.pnx-focus {
+  background-gradient-direction: vertical;
+  background-gradient-start: #000000;
+  background-gradient-end: #141320;
+  border-radius: 0 0 26px 26px;
+  padding: 8px 18px 10px 18px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+}
+
+/* Compact */
+.pnx-compact { spacing: 10px; }
+.pnx-dot { width: 9px; height: 9px; border-radius: 5px; background-color: #00c2ff; }
+.pnx-dot.break { background-color: #2ee6a6; }
+.pnx-dot.paused { background-color: #ffb547; }
+.pnx-compact-name { color: #f4f6ff; font-size: 13px; font-weight: 700; }
+.pnx-compact-time { color: #f4f6ff; font-size: 13px; font-weight: 700; font-feature-settings: "tnum"; }
+
+/* Agrandi */
+.pnx-full { spacing: 18px; padding: 8px 0 6px 0; }
+.pnx-focus-tile {
+  width: 84px;
+  height: 84px;
+  border-radius: 16px;
+  background-gradient-direction: diagonal;
+  background-gradient-start: #00c2ff;
+  background-gradient-end: #8b7cff;
+}
+.pnx-focus-tile.break { background-gradient-start: #2ee6a6; background-gradient-end: #00c2ff; }
+.pnx-focus-tile.paused { background-gradient-start: #ffb547; background-gradient-end: #ff6b9a; }
+.pnx-focus-tile-icon { icon-size: 34px; color: #ffffff; }
+
+.pnx-focus-main { spacing: 4px; min-width: 260px; }
+.pnx-focus-title { color: #ffffff; font-size: 16px; font-weight: 800; }
+.pnx-focus-subtitle { color: #a7a5b8; font-size: 13px; }
+.pnx-focus-progress { spacing: 10px; margin-top: 6px; }
+.pnx-time { color: #a7a5b8; font-size: 11px; font-weight: 600; font-feature-settings: "tnum"; min-width: 40px; }
+.pnx-track { height: 5px; border-radius: 3px; background-color: rgba(255, 255, 255, 0.16); }
+.pnx-fill { height: 5px; border-radius: 3px; background-color: #f4f6ff; }
+
+.pnx-controls { spacing: 18px; margin-top: 4px; }
+.pnx-ctl { border-radius: 999px; padding: 6px; }
+.pnx-ctl:hover { background-color: rgba(255, 255, 255, 0.12); }
+.pnx-ctl-icon { icon-size: 18px; color: #f4f6ff; }
+
+.pnx-divider { width: 1px; background-color: rgba(255, 255, 255, 0.12); margin: 6px 0; }
+
+/* Calendrier */
+.pnx-side { spacing: 10px; }
+.pnx-calendar { spacing: 8px; }
+.pnx-month-box { margin-right: 6px; }
+.pnx-month { color: #f4f6ff; font-size: 17px; font-weight: 800; }
+.pnx-year { color: #a7a5b8; font-size: 13px; }
+.pnx-day { spacing: 2px; }
+.pnx-day-letter { color: #a7a5b8; font-size: 10px; font-weight: 700; }
+.pnx-day-number { color: #f4f6ff; font-size: 12px; font-weight: 600; min-width: 24px; padding: 2px 0; text-align: center; border-radius: 999px; }
+.pnx-day-number.today { background-color: #00c2ff; color: #0d0b24; font-weight: 800; }
+.pnx-day-mark { width: 4px; height: 4px; border-radius: 2px; background-color: #2ee6a6; }
+
+.pnx-stats { spacing: 10px; }
+.pnx-stats-icon { icon-size: 18px; color: #a7a5b8; }
+.pnx-stats-title { color: #f4f6ff; font-size: 12px; font-weight: 700; }
+.pnx-stats-sub { color: #a7a5b8; font-size: 11px; }

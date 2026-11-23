@@ -1,0 +1,7 @@
+{
+  "uuid": "powernux-window-pin@powernux",
+  "name": "Powernux Smart Window Manager",
+  "description": "Module Smart Window Manager de Powernux : Always On Top, organisation automatique des fenêtres et espaces de travail.",
+  "shell-version": ["45", "46", "47", "48", "49", "50"],
+  "url": "https://github.com/"
+}

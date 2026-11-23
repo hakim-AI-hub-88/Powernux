@@ -1,0 +1,15 @@
+[package]
+name = "powernux-window-pin"
+version = "2.0.0"
+description = "Powernux — module Smart Window Manager"
+authors = ["Es-somid Abdelhakim"]
+edition = "2024"
+
+[dependencies]
+powernux-gnome-extension = { path = "../shared/gnome-extension" }
+serde_json = "1"
+
+[profile.release]
+lto = true
+opt-level = "s"
+strip = true

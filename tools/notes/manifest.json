@@ -1,0 +1,59 @@
+{
+  "id": "notes",
+  "name": "Notes",
+  "version": "1.0.1",
+  "description": "Bloc-notes structuré : carnets, titres, listes, cases à cocher et recherche. S'ouvre avec Win + Shift + N et n'utilise aucune ressource une fois fermé.",
+  "category": "Productivité",
+  "icon": "note-sticky",
+  "author": "Es-somid Abdelhakim",
+  "entry": "powernux-notes",
+  "minPowernuxVersion": "0.8.0",
+  "settings": [
+    {
+      "key": "shortcut",
+      "type": "shortcut",
+      "label": "Raccourci clavier",
+      "description": "Ouvre vos notes depuis n'importe quelle application.",
+      "default": "<Super><Shift>n"
+    }
+  ],
+  "shortcuts": [
+    {
+      "setting": "shortcut",
+      "name": "Notes",
+      "args": [
+        "--show"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "open",
+      "label": "Ouvrir les notes",
+      "icon": "up-right-from-square",
+      "args": [
+        "--show"
+      ]
+    }
+  ],
+  "hooks": {
+    "uninstall": [
+      "--quit"
+    ]
+  },
+  "i18n": {
+    "en": {
+      "name": "Notes",
+      "description": "Structured notepad: notebooks, headings, lists, checklists and search. Opens with Win + Shift + N and uses no resources once closed.",
+      "settings": {
+        "shortcut": {
+          "label": "Keyboard shortcut",
+          "description": "Opens your notes from any application."
+        }
+      },
+      "actions": {
+        "open": "Open notes"
+      }
+    }
+  }
+}

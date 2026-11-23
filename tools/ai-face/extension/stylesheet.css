@@ -1,0 +1,47 @@
+/* Notch AI Face — visage holographique au centre, actions sur les côtés. */
+.pnx-ai {
+  background-gradient-direction: vertical;
+  background-gradient-start: #000000;
+  background-gradient-end: #12101f;
+  border-radius: 0 0 30px 30px;
+  padding: 6px 20px 14px 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+}
+.pnx-ai-column { spacing: 6px; }
+.pnx-ai-row { spacing: 12px; }
+.pnx-ai-side { spacing: 6px; width: 150px; }
+
+.pnx-ai-tile {
+  width: 46px;
+  height: 46px;
+  border-radius: 12px;
+  background-gradient-direction: diagonal;
+  background-gradient-start: #2a2840;
+  background-gradient-end: #1a1828;
+  border: 1px solid rgba(0, 194, 255, 0.25);
+}
+.pnx-ai-tile-icon { icon-size: 22px; color: #00c2ff; }
+.pnx-ai-source { color: #f4f6ff; font-size: 13px; font-weight: 700; }
+.pnx-ai-muted { color: #8f8da6; font-size: 11px; }
+.pnx-ai-name { color: #8f8da6; font-size: 10px; font-weight: 800; letter-spacing: 2px; }
+
+.pnx-ai-button { border-radius: 999px; padding: 6px 12px; background-color: rgba(255, 255, 255, 0.08); }
+.pnx-ai-button:hover { background-color: rgba(0, 194, 255, 0.22); }
+.pnx-ai-button-box { spacing: 6px; color: #f4f6ff; font-size: 12px; font-weight: 600; }
+.pnx-ai-button-icon { icon-size: 14px; color: #f4f6ff; }
+
+.pnx-ai-caption {
+  color: #f4f6ff;
+  font-size: 14px;
+  font-weight: 600;
+  text-align: center;
+  padding: 0 24px;
+}
+.pnx-ai-fix {
+  color: #00c2ff;
+  font-family: monospace;
+  font-size: 12px;
+  background-color: rgba(0, 194, 255, 0.1);
+  border-radius: 8px;
+  padding: 5px 12px;
+}

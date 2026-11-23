@@ -1,0 +1,44 @@
+# Audit de sécurité des dépendances : à chaque push, chaque pull request et chaque semaine.
+name: Security audit
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "0 6 * * 1"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  npm:
+    name: npm audit
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - run: npm ci --ignore-scripts
+      - run: npm audit --omit=dev --audit-level=high
+
+  cargo:
+    name: cargo audit
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install cargo-audit
+        run: cargo install cargo-audit --locked
+      - name: Audit every Rust crate
+        run: |
+          status=0
+          for dir in src-tauri tools/clipboard/src-tauri tools/notes/src-tauri tools/window-pin tools/voice-typing tools/ai-face tools/focus-mode tools/screenshot tools/projects tools/file-organizer tools/shared/gnome-extension tools/signer; do
+            if [ -f "$dir/Cargo.lock" ]; then
+              echo "::group::$dir"
+              (cd "$dir" && cargo audit) || status=1
+              echo "::endgroup::"
+            fi
+          done
+          exit $status

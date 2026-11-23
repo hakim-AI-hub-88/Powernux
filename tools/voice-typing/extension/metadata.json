@@ -1,0 +1,7 @@
+{
+  "uuid": "powernux-voice-typing@powernux",
+  "name": "Powernux Voice Typing",
+  "description": "Module Voice Typing de Powernux : dictée vocale avec notch animé et collage automatique.",
+  "shell-version": ["45", "46", "47", "48", "49", "50"],
+  "url": "https://github.com/"
+}

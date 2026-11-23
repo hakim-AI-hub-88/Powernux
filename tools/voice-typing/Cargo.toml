@@ -1,0 +1,16 @@
+[package]
+name = "powernux-voice-typing"
+version = "1.3.0"
+description = "Powernux — module Voice Typing (dictée vocale)"
+authors = ["Es-somid Abdelhakim"]
+edition = "2024"
+
+[dependencies]
+powernux-gnome-extension = { path = "../shared/gnome-extension", features = ["secrets"] }
+serde_json = "1"
+reqwest = { version = "0.13", default-features = false, features = ["rustls", "blocking", "multipart"] }
+
+[profile.release]
+lto = true
+opt-level = "s"
+strip = true

@@ -1,0 +1,156 @@
+{
+  "id": "clipboard",
+  "name": "Clipboard Manager",
+  "version": "1.1.0",
+  "description": "Historique du presse-papiers : retrouvez et recollez tout ce que vous avez copié.",
+  "category": "Productivité",
+  "icon": "clipboard",
+  "author": "Es-somid Abdelhakim",
+  "entry": "powernux-clipboard",
+  "minPowernuxVersion": "0.2.0",
+  "settings": [
+    {
+      "key": "shortcut",
+      "type": "shortcut",
+      "label": "Raccourci clavier",
+      "description": "Ouvre l'historique du presse-papiers depuis n'importe quelle application.",
+      "default": "<Super><Shift>v"
+    },
+    {
+      "key": "maxItems",
+      "type": "select",
+      "label": "Taille de l'historique",
+      "description": "Les éléments épinglés ne sont jamais supprimés automatiquement.",
+      "default": 50,
+      "options": [
+        {
+          "value": 25,
+          "label": "25 éléments"
+        },
+        {
+          "value": 50,
+          "label": "50 éléments"
+        },
+        {
+          "value": 100,
+          "label": "100 éléments"
+        },
+        {
+          "value": 200,
+          "label": "200 éléments"
+        }
+      ]
+    },
+    {
+      "key": "saveHistory",
+      "type": "toggle",
+      "label": "Conserver l'historique au redémarrage",
+      "description": "Sauvegardé localement sur cet ordinateur uniquement.",
+      "default": true
+    },
+    {
+      "key": "ignoreSecrets",
+      "type": "toggle",
+      "label": "Ignorer les mots de passe",
+      "description": "Les copies marquées « secret » par les gestionnaires de mots de passe (KeePassXC…) ne sont jamais enregistrées.",
+      "default": true
+    },
+    {
+      "key": "autoClear",
+      "type": "select",
+      "label": "Effacer automatiquement l'historique",
+      "description": "Supprime les éléments non épinglés plus anciens que la durée choisie.",
+      "default": 0,
+      "options": [
+        {
+          "value": 0,
+          "label": "Jamais"
+        },
+        {
+          "value": 60,
+          "label": "Après 1 heure"
+        },
+        {
+          "value": 1440,
+          "label": "Après 1 jour"
+        },
+        {
+          "value": 10080,
+          "label": "Après 7 jours"
+        }
+      ]
+    }
+  ],
+  "shortcuts": [
+    {
+      "setting": "shortcut",
+      "name": "Presse-papiers",
+      "args": [
+        "--show"
+      ]
+    }
+  ],
+  "actions": [
+    {
+      "id": "show",
+      "label": "Ouvrir le presse-papiers",
+      "icon": "up-right-from-square",
+      "args": [
+        "--show"
+      ]
+    },
+    {
+      "id": "clear",
+      "label": "Effacer l'historique",
+      "icon": "trash-can",
+      "args": [
+        "--clear-history"
+      ],
+      "confirm": "Effacer tout l'historique (sauf les éléments épinglés) ?"
+    }
+  ],
+  "i18n": {
+    "en": {
+      "name": "Clipboard Manager",
+      "description": "Clipboard history: find and paste again anything you copied.",
+      "settings": {
+        "shortcut": {
+          "label": "Keyboard shortcut",
+          "description": "Opens the clipboard history from any application."
+        },
+        "maxItems": {
+          "label": "History size",
+          "description": "Pinned items are never removed automatically.",
+          "options": {
+            "25": "25 items",
+            "50": "50 items",
+            "100": "100 items",
+            "200": "200 items"
+          }
+        },
+        "saveHistory": {
+          "label": "Keep history after restart",
+          "description": "Stored locally on this computer only."
+        },
+        "ignoreSecrets": {
+          "label": "Ignore passwords",
+          "description": "Copies marked as secret by password managers (KeePassXC…) are never saved."
+        },
+        "autoClear": {
+          "label": "Clear history automatically",
+          "description": "Removes unpinned items older than the selected duration.",
+          "options": {
+            "0": "Never",
+            "60": "After 1 hour",
+            "1440": "After 1 day",
+            "10080": "After 7 days"
+          }
+        }
+      },
+      "actions": {
+        "show": "Open clipboard",
+        "clear": "Clear history"
+      }
+    }
+  }
+}
